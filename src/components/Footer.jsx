@@ -6,8 +6,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-900 text-white mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Column 1: Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -122,11 +122,11 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-slate-700 pt-8 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-slate-400 text-sm">
+        <div className="border-t border-slate-700 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <p className="text-slate-400 text-xs sm:text-sm">
             © {currentYear} Zorian Loan Finance. All rights reserved. NMLS #2137429 | California DBO Licensed
           </p>
-          <p className="text-slate-400 text-sm mt-4 md:mt-0">
+          <p className="text-slate-400 text-xs sm:text-sm">
             8326 Jamieson Ave, Northridge, CA 91325
           </p>
         </div>

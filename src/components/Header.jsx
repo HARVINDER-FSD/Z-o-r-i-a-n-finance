@@ -7,6 +7,19 @@ export default function Header() {
   const [loansDropdownOpen, setLoansDropdownOpen] = useState(false)
   const location = useLocation()
 
+  const handleHowItWorks = () => {
+    // If already on home page, just scroll to the section
+    if (location.pathname === '/') {
+      const element = document.getElementById('how-it-works')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      // Navigate to home and then scroll
+      window.location.href = '/#how-it-works'
+    }
+  }
+
   const handleCalculatorClick = () => {
     // Navigate and scroll to calculator
     setTimeout(() => {
@@ -35,7 +48,14 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-7">
-          <a href="#how-it-works" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+          <a 
+            href="#how-it-works"
+            onClick={(e) => {
+              e.preventDefault()
+              handleHowItWorks()
+            }}
+            className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+          >
             How It Works
           </a>
 
@@ -128,11 +148,16 @@ export default function Header() {
         {/* Action Buttons & Mobile Toggle */}
         <div className="flex items-center gap-3">
           <Link
-            to="/auto-loans"
+            to="/contact"
             className="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm hover:shadow transition-all duration-150"
           >
-            Check Eligibility
+            Contact Us
           </Link>
+          <button
+            className="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-blue-600 bg-white border-2 border-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-150"
+          >
+            Login
+          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2 rounded-md text-slate-700 hover:bg-slate-100 focus:outline-none"
@@ -145,7 +170,15 @@ export default function Header() {
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-3">
-          <a href="#how-it-works" className="block text-sm font-semibold text-slate-800 py-1">
+          <a 
+            href="#how-it-works"
+            onClick={(e) => {
+              e.preventDefault()
+              handleHowItWorks()
+              setMobileMenuOpen(false)
+            }}
+            className="block text-sm font-semibold text-slate-800 py-1"
+          >
             How It Works
           </a>
           <Link to="/auto-loans" className="block text-sm font-semibold text-slate-800 py-1">
@@ -164,12 +197,19 @@ export default function Header() {
           <Link to="/faq" className="block text-sm font-semibold text-slate-800 py-1">
             FAQ
           </Link>
-          <Link
-            to="/contact"
-            className="w-full text-center block py-2.5 text-sm font-bold text-white bg-blue-600 rounded-lg mt-2"
-          >
-            Get Started
-          </Link>
+          <div className="flex flex-col gap-2 pt-3 border-t border-slate-200">
+            <Link
+              to="/contact"
+              className="w-full text-center block py-2.5 text-sm font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all"
+            >
+              Contact Us
+            </Link>
+            <button
+              className="w-full text-center py-2.5 text-sm font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-all"
+            >
+              Login
+            </button>
+          </div>
         </div>
       )}
     </header>
