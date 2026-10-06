@@ -1,10 +1,21 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import zorian_logo from '../assets/zorian-logo.png'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [loansDropdownOpen, setLoansDropdownOpen] = useState(false)
+  const location = useLocation()
+
+  const handleCalculatorClick = () => {
+    // Navigate and scroll to calculator
+    setTimeout(() => {
+      const element = document.getElementById('calculator-section')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 100)
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-200">
@@ -17,8 +28,8 @@ export default function Header() {
             src={zorian_logo}
           />
           <div className="flex items-baseline gap-1">
-            <span className="font-bold text-lg text-slate-1000">Zorian</span>
-            <span className="text-xs font-semibold text-black-700">LOAN FINANCE</span>
+            <span className="font-bold text-lg text-slate-900">Zorian</span>
+            <span className="text-xs font-semibold text-blue-600">LOAN FINANCE</span>
           </div>
         </Link>
 
@@ -99,9 +110,13 @@ export default function Header() {
           <Link to="/" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
             About Us
           </Link>
-          <a href="#calculator" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
+          <Link 
+            to="/auto-loans" 
+            onClick={handleCalculatorClick}
+            className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+          >
             Calculator
-          </a>
+          </Link>
           <Link to="/faq" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors">
             FAQ
           </Link>
@@ -136,9 +151,13 @@ export default function Header() {
           <Link to="/auto-loans" className="block text-sm font-semibold text-slate-800 py-1">
             Loan Types
           </Link>
-          <a href="#calculator" className="block text-sm font-semibold text-slate-800 py-1">
+          <Link 
+            to="/auto-loans" 
+            onClick={handleCalculatorClick}
+            className="block text-sm font-semibold text-slate-800 py-1"
+          >
             Calculator
-          </a>
+          </Link>
           <Link to="/" className="block text-sm font-semibold text-slate-800 py-1">
             About Us
           </Link>

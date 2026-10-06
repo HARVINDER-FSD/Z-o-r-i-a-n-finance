@@ -132,7 +132,7 @@ export default function AutoLoansPage() {
       </section>
 
       {/* Interactive Calculator */}
-      <section id="calculator-section" className="py-20 bg-white">
+      <section id="calculator-section" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Interactive Estimator</span>
@@ -144,7 +144,7 @@ export default function AutoLoansPage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-slate-200">
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-slate-200 min-h-[500px]">
             {/* Left: Inputs */}
             <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col gap-8">
               {/* Vehicle Price */}
