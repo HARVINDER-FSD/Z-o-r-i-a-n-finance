@@ -147,12 +147,6 @@ export default function Header() {
 
         {/* Action Buttons & Mobile Toggle */}
         <div className="flex items-center gap-3">
-          <Link
-            to="/contact"
-            className="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm hover:shadow transition-all duration-150"
-          >
-            Contact Us
-          </Link>
           <button
             className="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-blue-600 bg-white border-2 border-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-150"
           >
@@ -198,12 +192,6 @@ export default function Header() {
             FAQ
           </Link>
           <div className="flex flex-col gap-2 pt-3 border-t border-slate-200">
-            <Link
-              to="/contact"
-              className="w-full text-center block py-2.5 text-sm font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all"
-            >
-              Contact Us
-            </Link>
             <button
               className="w-full text-center py-2.5 text-sm font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-all"
             >
