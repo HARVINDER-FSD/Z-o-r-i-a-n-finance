@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#0B1F3A" opacity="0.1"/>
+  
+  <!-- Shield shape -->
+  <path d="M 100 20 L 160 50 L 160 100 Q 160 150 100 170 Q 40 150 40 100 L 40 50 Z" fill="#0B1F3A"/>
+  
+  <!-- Z shape inside shield -->
+  <text x="100" y="135" font-size="80" font-weight="bold" font-family="Arial, sans-serif" fill="#2563EB" text-anchor="middle">Z</text>
+  
+  <!-- Upward arrow -->
+  <path d="M 100 80 L 115 95 M 100 80 L 85 95 M 100 80 L 100 125" stroke="#2563EB" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Text -->
+  <text x="100" y="185" font-size="12" font-weight="bold" font-family="Arial, sans-serif" fill="#0B1F3A" text-anchor="middle">ZORIAN</text>
+</svg>
