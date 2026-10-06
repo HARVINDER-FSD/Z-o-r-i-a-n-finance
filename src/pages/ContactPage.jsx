@@ -100,30 +100,6 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Phone */}
-          <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-2xl">headset_mic</span>
-              </div>
-              <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">Toll-Free Assistance</span>
-              <h3 className="text-lg font-bold text-slate-900 mt-1">Call Our US Team</h3>
-              <p className="mt-2 text-xl font-bold text-slate-900">(800) 582-9140</p>
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                Mon – Fri: 8:00 AM – 6:00 PM PST. Direct access to salaried, non-commissioned consumer finance representatives.
-              </p>
-            </div>
-            <div className="mt-6 pt-4">
-              <a
-                href="tel:8005829140"
-                className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors"
-              >
-                <span>Call (800) 582-9140</span>
-                <span className="material-symbols-outlined text-[16px]">call</span>
-              </a>
-            </div>
-          </div>
-
           {/* Headquarters */}
           <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             <div>
