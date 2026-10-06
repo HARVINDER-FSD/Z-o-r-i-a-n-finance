@@ -235,16 +235,34 @@ export default function Header() {
           </div>
           <Link 
             to="/auto-loans" 
-            onClick={handleCalculatorClick}
-            className="block text-sm font-semibold text-slate-800 py-1"
+            onClick={() => {
+              handleCalculatorClick()
+              setMobileMenuOpen(false)
+            }}
+            className="block text-sm font-semibold text-slate-800 py-2 hover:text-blue-600 transition-colors"
           >
             Calculator
           </Link>
-          <Link to="/" className="block text-sm font-semibold text-slate-800 py-1">
+          <Link 
+            to="/" 
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-sm font-semibold text-slate-800 py-2 hover:text-blue-600 transition-colors"
+          >
             About Us
           </Link>
-          <Link to="/faq" className="block text-sm font-semibold text-slate-800 py-1">
+          <Link 
+            to="/faq" 
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-sm font-semibold text-slate-800 py-2 hover:text-blue-600 transition-colors"
+          >
             FAQ
+          </Link>
+          <Link 
+            to="/contact" 
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-sm font-semibold text-slate-800 py-2 hover:text-blue-600 transition-colors"
+          >
+            Contact
           </Link>
           <div className="flex flex-col gap-2 pt-3 border-t border-slate-200">
             <button
