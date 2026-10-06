@@ -5,6 +5,7 @@ import zorian_logo from '../assets/zorian-logo.png'
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [loansDropdownOpen, setLoansDropdownOpen] = useState(false)
+  const [mobileLoanDropdownOpen, setMobileLoanDropdownOpen] = useState(false)
   const location = useLocation()
 
   const handleHowItWorks = () => {
@@ -171,13 +172,67 @@ export default function Header() {
               handleHowItWorks()
               setMobileMenuOpen(false)
             }}
-            className="block text-sm font-semibold text-slate-800 py-1"
+            className="block text-sm font-semibold text-slate-800 py-2"
           >
             How It Works
           </a>
-          <Link to="/auto-loans" className="block text-sm font-semibold text-slate-800 py-1">
-            Loan Types
-          </Link>
+
+          {/* Mobile Loan Types Dropdown */}
+          <div>
+            <button
+              onClick={() => setMobileLoanDropdownOpen(!mobileLoanDropdownOpen)}
+              className="w-full flex items-center justify-between text-sm font-semibold text-slate-800 py-2 hover:text-blue-600 transition-colors"
+            >
+              <span>Loan Types</span>
+              <span className={`material-symbols-outlined transition-transform duration-200 ${mobileLoanDropdownOpen ? 'rotate-180' : ''}`}>
+                expand_more
+              </span>
+            </button>
+            {mobileLoanDropdownOpen && (
+              <div className="ml-4 space-y-2 py-2 border-l-2 border-slate-200">
+                <Link
+                  to="/auto-loans"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    setMobileLoanDropdownOpen(false)
+                  }}
+                  className="block text-sm font-medium text-slate-700 py-1 hover:text-blue-600 transition-colors"
+                >
+                  Auto Loans (5.99% APR)
+                </Link>
+                <Link
+                  to="/home-improvement"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    setMobileLoanDropdownOpen(false)
+                  }}
+                  className="block text-sm font-medium text-slate-700 py-1 hover:text-blue-600 transition-colors"
+                >
+                  Home Improvement (6.49% APR)
+                </Link>
+                <Link
+                  to="/emergency-loans"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    setMobileLoanDropdownOpen(false)
+                  }}
+                  className="block text-sm font-medium text-slate-700 py-1 hover:text-blue-600 transition-colors"
+                >
+                  Emergency Loans (8.99% APR)
+                </Link>
+                <Link
+                  to="/debt-consolidation"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    setMobileLoanDropdownOpen(false)
+                  }}
+                  className="block text-sm font-medium text-slate-700 py-1 hover:text-blue-600 transition-colors"
+                >
+                  Debt Consolidation (7.25% APR)
+                </Link>
+              </div>
+            )}
+          </div>
           <Link 
             to="/auto-loans" 
             onClick={handleCalculatorClick}
