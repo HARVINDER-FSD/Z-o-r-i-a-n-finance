@@ -55,7 +55,7 @@ export default function LoanCalculator() {
             <label className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Borrow Amount
             </label>
-            <span className="text-xl font-extrabold text-slate-900">
+            <span className="text-2xl font-extrabold text-blue-600">
               ${loanAmount.toLocaleString()}
             </span>
           </div>

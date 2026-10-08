@@ -151,7 +151,11 @@ export default function ContactPage() {
                 {loanDetails && (
                   <div className="p-6 rounded-xl bg-blue-50 border border-blue-200">
                     <h3 className="font-bold text-slate-900 mb-4">Your Loan Inquiry</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold mb-1">Loan Amount</p>
+                        <p className="font-bold text-slate-900">${loanDetails.loanAmount?.toLocaleString()}</p>
+                      </div>
                       <div>
                         <p className="text-xs text-slate-500 font-semibold mb-1">Loan Purpose</p>
                         <p className="font-bold text-slate-900 capitalize">
