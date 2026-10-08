@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom'
 export default function ContactPage() {
   const [loanDetails, setLoanDetails] = useState(null)
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
+    loanAmount: '',
+    bankName: '',
+    state: '',
+    country: '',
     reason: '',
     message: '',
     consent: false,
@@ -20,18 +25,6 @@ export default function ContactPage() {
     const stored = sessionStorage.getItem('loanDetails')
     if (stored) {
       setLoanDetails(JSON.parse(stored))
-      // Auto-set reason based on loan purpose
-      const details = JSON.parse(stored)
-      const reasonMap = {
-        auto: 'auto-loan',
-        home: 'home-improvement',
-        emergency: 'emergency-loan',
-        debt: 'debt-consolidation',
-      }
-      setFormData(prev => ({
-        ...prev,
-        reason: reasonMap[details.purpose] || 'general'
-      }))
     }
   }, [])
 
@@ -45,7 +38,7 @@ export default function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (formData.fullName && formData.email && formData.phone && formData.reason && formData.message && formData.consent) {
+    if (formData.firstName && formData.lastName && formData.email && formData.phone && formData.loanAmount && formData.bankName && formData.state && formData.country && formData.message && formData.consent) {
       setLoading(true)
       setError('')
 
@@ -57,9 +50,14 @@ export default function ContactPage() {
         form.style.display = 'none'
 
         const fields = {
-          fullName: formData.fullName,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           email: formData.email,
           phone: formData.phone,
+          loanAmount: formData.loanAmount,
+          bankName: formData.bankName,
+          state: formData.state,
+          country: formData.country,
           reason: formData.reason,
           message: formData.message,
         }
@@ -67,7 +65,6 @@ export default function ContactPage() {
         // Add loan details if available
         if (loanDetails) {
           fields.loanPurpose = loanDetails.purpose
-          fields.loanAmount = loanDetails.loanAmount
           fields.loanTerm = loanDetails.term
           fields.loanAPR = loanDetails.apr
           fields.monthlyPayment = loanDetails.monthlyPayment
@@ -90,9 +87,14 @@ export default function ContactPage() {
         setSubmitted(true)
         setTimeout(() => setSubmitted(false), 5000)
         setFormData({
-          fullName: '',
+          firstName: '',
+          lastName: '',
           email: '',
           phone: '',
+          loanAmount: '',
+          bankName: '',
+          state: '',
+          country: '',
           reason: '',
           message: '',
           consent: false,
@@ -135,57 +137,6 @@ export default function ContactPage() {
               Submit Inquiry
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </a>
-            <a
-              href="#faq"
-              className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-lg bg-white border border-slate-300 text-slate-900 font-bold hover:bg-slate-50 transition-all"
-            >
-              Browse FAQs
-              <span className="material-symbols-outlined text-[18px]">help_outline</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Three Contact Cards */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Email */}
-          <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-2xl">mail</span>
-              </div>
-              <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">Written Inquiries</span>
-              <h3 className="text-lg font-bold text-slate-900 mt-1">Email Us Directly</h3>
-              <p className="mt-2 font-semibold text-blue-600 break-all">quickadvancecash01@gmail.com</p>
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                Send detailed inquiries 24/7. Typically reviewed and resolved within one business day by loan specialists.
-              </p>
-            </div>
-            <div className="mt-6 pt-4">
-              <a
-                href="mailto:quickadvancecash01@gmail.com"
-                className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors"
-              >
-                <span>Email Support</span>
-                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Headquarters */}
-          <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-2xl">apartment</span>
-              </div>
-              <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">Corporate Presence</span>
-              <h3 className="text-lg font-bold text-slate-900 mt-1">Visit Headquarters</h3>
-              <p className="mt-2 font-semibold text-slate-900">8326 Jamieson Ave, Northridge, CA</p>
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                California licensed consumer lending operations, compliance desk, and executive underwriting headquarters.
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -220,10 +171,6 @@ export default function ContactPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs text-slate-500 font-semibold mb-1">Loan Amount</p>
-                        <p className="font-bold text-slate-900">${loanDetails.loanAmount?.toLocaleString()}</p>
-                      </div>
-                      <div>
                         <p className="text-xs text-slate-500 font-semibold mb-1">Term</p>
                         <p className="font-bold text-slate-900">{loanDetails.term} Months</p>
                       </div>
@@ -231,28 +178,40 @@ export default function ContactPage() {
                         <p className="text-xs text-slate-500 font-semibold mb-1">Est. APR</p>
                         <p className="font-bold text-slate-900">{loanDetails.apr}%</p>
                       </div>
-                      <div>
-                        <p className="text-xs text-slate-500 font-semibold mb-1">Monthly Payment</p>
-                        <p className="font-bold text-blue-600">${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-                      </div>
                     </div>
                   </div>
                 )}
 
-                {/* Full Name */}
-                <div>
-                  <label className="block text-sm font-bold text-slate-900 mb-2">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="Enter your full name"
-                    required
-                    className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
-                  />
+                {/* First Name & Last Name */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      First Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="Enter your first name"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      Last Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder="Enter your last name"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
                 </div>
 
                 {/* Email & Phone */}
@@ -287,16 +246,79 @@ export default function ContactPage() {
                   </div>
                 </div>
 
+                {/* Loan Amount & Bank Name */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      Loan Amount <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      name="loanAmount"
+                      value={formData.loanAmount}
+                      onChange={handleChange}
+                      placeholder="Enter loan amount"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      Bank Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="bankName"
+                      value={formData.bankName}
+                      onChange={handleChange}
+                      placeholder="Enter your bank name"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
+                </div>
+
+                {/* State & Country */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      State <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleChange}
+                      placeholder="Enter your state"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      Country <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      placeholder="Enter your country"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
+                </div>
+
                 {/* Reason */}
                 <div>
                   <label className="block text-sm font-bold text-slate-900 mb-2">
-                    Reason for Contact <span className="text-red-500">*</span>
+                    Reason for Contact
                   </label>
                   <select
                     name="reason"
                     value={formData.reason}
                     onChange={handleChange}
-                    required
                     className="w-full h-12 px-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
                   >
                     <option value="">Select an inquiry category</option>
@@ -342,15 +364,6 @@ export default function ContactPage() {
                   </label>
                 </div>
 
-                {/* Security Banner */}
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-blue-50">
-                  <span className="material-symbols-outlined text-blue-600 text-[20px] shrink-0 mt-0.5">lock</span>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    <strong className="text-slate-900">Security Alert:</strong> Please do not submit confidential financial
-                    credentials, such as full Social Security Numbers, PINs, or bank account routing numbers, via this form.
-                  </p>
-                </div>
-
                 {/* Submit Button */}
                 <button
                   type="submit"
@@ -379,8 +392,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-lg font-bold text-slate-900">Message Sent Successfully</h3>
                   <p className="mt-2 text-slate-600 max-w-md mx-auto">
-                    Thank you for contacting Zorian Loan Finance. Your reference tracking number is <strong>#ZLF-84920</strong>.
-                    A certified loan representative will follow up promptly.
+                    Thank you for contacting Zorian Loan Finance. A loan specialist will follow up shortly.
                   </p>
                 </div>
               )}
@@ -389,57 +401,20 @@ export default function ContactPage() {
 
           {/* Sidebar */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* What Happens Next */}
+            {/* Email Card */}
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Our Protocol</span>
-              <h3 className="text-2xl font-bold text-slate-900 mt-1 mb-6">What Happens Next?</h3>
-
-              <div className="space-y-6">
-                {[
-                  { num: '01', title: 'Message Received & Encrypted', desc: 'Your inquiry is immediately cataloged in our SOC-2 compliant ticketing system.' },
-                  { num: '02', title: 'Specialist File Review', desc: 'Our team investigates your specific question, pulling relevant application parameters.' },
-                  { num: '03', title: 'Verified Personalized Response', desc: 'You receive an actionable reply via email without marketing spam.' },
-                ].map((step) => (
-                  <div key={step.num} className="flex gap-4">
-                    <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
-                      {step.num}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900">{step.title}</h4>
-                      <p className="text-sm text-slate-600 mt-1">{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
+                <span className="material-symbols-outlined text-2xl">mail</span>
               </div>
-            </div>
-
-            {/* Operating Hours */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-              <div className="pb-4 border-b border-slate-200">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-bold text-slate-900">Support Desk Hours</h4>
-                    <p className="text-sm text-slate-600">Northridge Operating Center (PST)</p>
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-500"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <span className="text-xs font-bold text-emerald-600">Available Now</span>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4 space-y-2 text-sm text-slate-600">
-                <div className="flex justify-between py-1">
-                  <span>Monday – Friday:</span>
-                  <span className="font-semibold text-slate-900">8:00 AM – 6:00 PM PST</span>
-                </div>
-                <div className="flex justify-between py-1">
-                  <span>Saturday – Sunday:</span>
-                  <span className="text-slate-500">Closed</span>
-                </div>
-              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Email Us Directly</h3>
+              <p className="font-semibold text-blue-600 mb-4">quickadvancecash01@gmail.com</p>
+              <a
+                href="mailto:quickadvancecash01@gmail.com"
+                className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold"
+              >
+                <span>Send Email</span>
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
             </div>
 
             {/* CTA Box */}
