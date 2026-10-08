@@ -54,33 +54,26 @@ export default function AutoLoansPage() {
       setLoanError('')
 
       try {
-        const response = await fetch('/api/send-email', {
+        const payload = {
+          fullName: loanFormData.fullName,
+          email: loanFormData.email,
+          phone: loanFormData.phone,
+          message: loanFormData.message || '',
+          vehiclePrice: vehiclePrice,
+          downPayment: downPayment,
+          loanAmount: principal,
+          loanTerm: term,
+          apr: apr,
+          monthlyPayment: monthlyPayment,
+          totalInterest: totalInterest,
+          totalRepayment: totalRepayment,
+        }
+
+        const response = await fetch('/api/submit-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: 'support@zorianloanfinance.com',
-            from: 'Zorian Loans <onboarding@resend.dev>',
-            subject: `New Auto Loan Application from ${loanFormData.fullName}`,
-            html: `
-              <h2>New Auto Loan Application</h2>
-              <p><strong>Name:</strong> ${loanFormData.fullName}</p>
-              <p><strong>Email:</strong> ${loanFormData.email}</p>
-              <p><strong>Phone:</strong> ${loanFormData.phone}</p>
-              <p><strong>Message:</strong> ${loanFormData.message || 'No additional message'}</p>
-              <h3>Loan Criteria</h3>
-              <p><strong>Vehicle Price:</strong> $${vehiclePrice.toLocaleString()}</p>
-              <p><strong>Down Payment:</strong> $${downPayment.toLocaleString()}</p>
-              <p><strong>Loan Amount:</strong> $${principal.toLocaleString()}</p>
-              <p><strong>Loan Term:</strong> ${term} months</p>
-              <p><strong>APR:</strong> ${apr}%</p>
-              <p><strong>Monthly Payment:</strong> $${parseFloat(monthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-              <p><strong>Total Interest:</strong> $${parseFloat(totalInterest).toLocaleString()}</p>
-              <p><strong>Total Repayment:</strong> $${parseFloat(totalRepayment).toLocaleString()}</p>
-            `
-          })
+          body: JSON.stringify(payload),
         })
-
-        const data = await response.json()
 
         if (response.ok) {
           setLoanSubmitted(true)
@@ -94,7 +87,7 @@ export default function AutoLoansPage() {
             consent: false,
           })
         } else {
-          setLoanError(data.error || 'Failed to submit application. Please try again.')
+          setLoanError('Failed to submit application. Please try again.')
           setLoanLoading(false)
         }
       } catch (err) {

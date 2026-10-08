@@ -50,33 +50,29 @@ export default function ContactPage() {
       setError('')
 
       try {
-        const response = await fetch('/api/send-email', {
+        // Send through our server to Formspree
+        const payload = {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          reason: formData.reason,
+          message: formData.message,
+        }
+        
+        // Add loan details if available
+        if (loanDetails) {
+          payload.loanPurpose = loanDetails.purpose
+          payload.loanAmount = loanDetails.loanAmount
+          payload.loanTerm = loanDetails.term
+          payload.loanAPR = loanDetails.apr
+          payload.monthlyPayment = loanDetails.monthlyPayment
+        }
+
+        const response = await fetch('/api/submit-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: 'support@zorianloanfinance.com',
-            from: 'Zorian Loans <onboarding@resend.dev>',
-            subject: `New Loan Application from ${formData.fullName}`,
-            html: `
-              <h2>New Loan Inquiry</h2>
-              <p><strong>Name:</strong> ${formData.fullName}</p>
-              <p><strong>Email:</strong> ${formData.email}</p>
-              <p><strong>Phone:</strong> ${formData.phone}</p>
-              <p><strong>Reason:</strong> ${formData.reason}</p>
-              <p><strong>Message:</strong> ${formData.message}</p>
-              ${loanDetails ? `
-                <h3>Loan Details</h3>
-                <p><strong>Purpose:</strong> ${loanDetails.purpose}</p>
-                <p><strong>Amount:</strong> $${loanDetails.loanAmount?.toLocaleString()}</p>
-                <p><strong>Term:</strong> ${loanDetails.term} months</p>
-                <p><strong>APR:</strong> ${loanDetails.apr}%</p>
-                <p><strong>Monthly Payment:</strong> $${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-              ` : ''}
-            `
-          })
+          body: JSON.stringify(payload),
         })
-
-        const data = await response.json()
 
         if (response.ok) {
           setSubmitted(true)
@@ -91,7 +87,7 @@ export default function ContactPage() {
           })
           sessionStorage.removeItem('loanDetails')
         } else {
-          setError(data.error || 'Failed to send message. Please try again.')
+          setError('Failed to send message. Please try again.')
         }
       } catch (err) {
         console.error('Error:', err)
@@ -150,14 +146,14 @@ export default function ContactPage() {
               </div>
               <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">Written Inquiries</span>
               <h3 className="text-lg font-bold text-slate-900 mt-1">Email Us Directly</h3>
-              <p className="mt-2 font-semibold text-blue-600 break-all">support@zorianloanfinance.com</p>
+              <p className="mt-2 font-semibold text-blue-600 break-all">quickadvancecash01@gmail.com</p>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed">
                 Send detailed inquiries 24/7. Typically reviewed and resolved within one business day by loan specialists.
               </p>
             </div>
             <div className="mt-6 pt-4">
               <a
-                href="mailto:support@zorianloanfinance.com"
+                href="mailto:quickadvancecash01@gmail.com"
                 className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold transition-colors"
               >
                 <span>Email Support</span>

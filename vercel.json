@@ -2,8 +2,5 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "env": {
-    "RESEND_API_KEY": "@resend_api_key"
-  }
+  "framework": "vite"
 }

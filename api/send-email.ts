@@ -1,8 +1,6 @@
 import { Resend } from 'resend';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
@@ -29,7 +27,19 @@ export default async function handler(
     return;
   }
 
+  // Check if API key exists
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is not set in environment variables');
+    return res.status(500).json({ error: 'Email service is not configured. Please contact support.' });
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { to, from, subject, html } = req.body;
+
+  // Validate required fields
+  if (!subject || !html) {
+    return res.status(400).json({ error: 'Missing required fields: subject and html' });
+  }
 
   try {
     const data = await resend.emails.send({
@@ -42,6 +52,6 @@ export default async function handler(
     res.status(200).json(data);
   } catch (error: any) {
     console.error('Resend error:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message || 'Failed to send email' });
   }
 }
