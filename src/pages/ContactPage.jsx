@@ -8,12 +8,9 @@ export default function ContactPage() {
     lastName: '',
     email: '',
     phone: '',
-    loanAmount: '',
     bankName: '',
     state: '',
     country: '',
-    reason: '',
-    message: '',
     consent: false,
   })
   const [submitted, setSubmitted] = useState(false)
@@ -38,7 +35,7 @@ export default function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (formData.firstName && formData.lastName && formData.email && formData.phone && formData.loanAmount && formData.bankName && formData.state && formData.country && formData.message && formData.consent) {
+    if (formData.firstName && formData.lastName && formData.email && formData.phone && formData.bankName && formData.state && formData.country && formData.consent) {
       setLoading(true)
       setError('')
 
@@ -54,12 +51,9 @@ export default function ContactPage() {
           lastName: formData.lastName,
           email: formData.email,
           phone: formData.phone,
-          loanAmount: formData.loanAmount,
           bankName: formData.bankName,
           state: formData.state,
           country: formData.country,
-          reason: formData.reason,
-          message: formData.message,
         }
 
         // Add loan details if available
@@ -91,12 +85,9 @@ export default function ContactPage() {
           lastName: '',
           email: '',
           phone: '',
-          loanAmount: '',
           bankName: '',
           state: '',
           country: '',
-          reason: '',
-          message: '',
           consent: false,
         })
         sessionStorage.removeItem('loanDetails')
@@ -246,38 +237,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Loan Amount & Bank Name */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-slate-900 mb-2">
-                      Loan Amount <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="loanAmount"
-                      value={formData.loanAmount}
-                      onChange={handleChange}
-                      placeholder="Enter loan amount"
-                      required
-                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-slate-900 mb-2">
-                      Bank Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="bankName"
-                      value={formData.bankName}
-                      onChange={handleChange}
-                      placeholder="Enter your bank name"
-                      required
-                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
-                    />
-                  </div>
-                </div>
-
                 {/* State & Country */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -308,44 +267,6 @@ export default function ContactPage() {
                       className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
                     />
                   </div>
-                </div>
-
-                {/* Reason */}
-                <div>
-                  <label className="block text-sm font-bold text-slate-900 mb-2">
-                    Reason for Contact
-                  </label>
-                  <select
-                    name="reason"
-                    value={formData.reason}
-                    onChange={handleChange}
-                    className="w-full h-12 px-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
-                  >
-                    <option value="">Select an inquiry category</option>
-                    <option value="general">General Lending Question</option>
-                    <option value="loan-terms">Loan Terms & Rates Inquiry</option>
-                    <option value="application">Application & Underwriting Status</option>
-                    <option value="servicing">Payment & Servicing Schedule</option>
-                    <option value="tech">Online Account or Technical Issue</option>
-                    <option value="other">Other Inquiry</option>
-                  </select>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-bold text-slate-900 mb-2">
-                    Message <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Please provide specific details regarding your inquiry..."
-                    required
-                    maxLength="1000"
-                    rows="5"
-                    className="w-full p-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition resize-y"
-                  ></textarea>
                 </div>
 
                 {/* Consent */}
