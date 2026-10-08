@@ -78,7 +78,7 @@ export default function ContactPage() {
 
         const data = await response.json()
 
-        if (response.ok && data.id) {
+        if (response.ok) {
           setSubmitted(true)
           setTimeout(() => setSubmitted(false), 5000)
           setFormData({
@@ -91,7 +91,7 @@ export default function ContactPage() {
           })
           sessionStorage.removeItem('loanDetails')
         } else {
-          setError('Failed to send message. Please try again.')
+          setError(data.error || 'Failed to send message. Please try again.')
         }
       } catch (err) {
         console.error('Error:', err)

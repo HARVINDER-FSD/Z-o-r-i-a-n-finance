@@ -82,7 +82,7 @@ export default function AutoLoansPage() {
 
         const data = await response.json()
 
-        if (response.ok && data.id) {
+        if (response.ok) {
           setLoanSubmitted(true)
           setLoanLoading(false)
           setTimeout(() => setLoanSubmitted(false), 5000)
@@ -94,7 +94,7 @@ export default function AutoLoansPage() {
             consent: false,
           })
         } else {
-          setLoanError('Failed to submit application. Please try again.')
+          setLoanError(data.error || 'Failed to submit application. Please try again.')
           setLoanLoading(false)
         }
       } catch (err) {
