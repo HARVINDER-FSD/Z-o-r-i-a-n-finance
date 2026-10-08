@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Resend } from 'resend'
 
 export default function ContactPage() {
-  const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY)
   const [loanDetails, setLoanDetails] = useState(null)
   const [formData, setFormData] = useState({
     fullName: '',
@@ -52,56 +50,35 @@ export default function ContactPage() {
       setError('')
 
       try {
-        const emailBody = `
-New Loan Inquiry Received:
-
-PERSONAL DETAILS:
-Name: ${formData.fullName}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Reason: ${formData.reason}
-
-MESSAGE:
-${formData.message}
-
-${loanDetails ? `
-LOAN DETAILS:
-Purpose: ${loanDetails.purpose}
-Amount: $${loanDetails.loanAmount?.toLocaleString()}
-Term: ${loanDetails.term} months
-APR: ${loanDetails.apr}%
-Monthly Payment: $${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-` : ''}
-
----
-Consent Given: Yes
-Please review and follow up accordingly.
-        `
-
-        const response = await resend.emails.send({
-          from: 'Zorian Loans <onboarding@resend.dev>',
-          to: 'support@zorianloanfinance.com',
-          replyTo: formData.email,
-          subject: `New Loan Application from ${formData.fullName}`,
-          html: `
-            <h2>New Loan Inquiry</h2>
-            <p><strong>Name:</strong> ${formData.fullName}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Phone:</strong> ${formData.phone}</p>
-            <p><strong>Reason:</strong> ${formData.reason}</p>
-            <p><strong>Message:</strong> ${formData.message}</p>
-            ${loanDetails ? `
-              <h3>Loan Details</h3>
-              <p><strong>Purpose:</strong> ${loanDetails.purpose}</p>
-              <p><strong>Amount:</strong> $${loanDetails.loanAmount?.toLocaleString()}</p>
-              <p><strong>Term:</strong> ${loanDetails.term} months</p>
-              <p><strong>APR:</strong> ${loanDetails.apr}%</p>
-              <p><strong>Monthly Payment:</strong> $${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-            ` : ''}
-          `
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: 'support@zorianloanfinance.com',
+            from: 'Zorian Loans <onboarding@resend.dev>',
+            subject: `New Loan Application from ${formData.fullName}`,
+            html: `
+              <h2>New Loan Inquiry</h2>
+              <p><strong>Name:</strong> ${formData.fullName}</p>
+              <p><strong>Email:</strong> ${formData.email}</p>
+              <p><strong>Phone:</strong> ${formData.phone}</p>
+              <p><strong>Reason:</strong> ${formData.reason}</p>
+              <p><strong>Message:</strong> ${formData.message}</p>
+              ${loanDetails ? `
+                <h3>Loan Details</h3>
+                <p><strong>Purpose:</strong> ${loanDetails.purpose}</p>
+                <p><strong>Amount:</strong> $${loanDetails.loanAmount?.toLocaleString()}</p>
+                <p><strong>Term:</strong> ${loanDetails.term} months</p>
+                <p><strong>APR:</strong> ${loanDetails.apr}%</p>
+                <p><strong>Monthly Payment:</strong> $${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+              ` : ''}
+            `
+          })
         })
 
-        if (response.data) {
+        const data = await response.json()
+
+        if (response.ok && data.id) {
           setSubmitted(true)
           setTimeout(() => setSubmitted(false), 5000)
           setFormData({
@@ -117,6 +94,7 @@ Please review and follow up accordingly.
           setError('Failed to send message. Please try again.')
         }
       } catch (err) {
+        console.error('Error:', err)
         setError('Failed to send message. Please try again.')
       } finally {
         setLoading(false)

@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Resend } from 'resend'
 
 export default function AutoLoansPage() {
-  const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY)
   const [vehiclePrice, setVehiclePrice] = useState(25000)
   const [downPayment, setDownPayment] = useState(5000)
   const [term, setTerm] = useState(60)
@@ -56,30 +54,35 @@ export default function AutoLoansPage() {
       setLoanError('')
 
       try {
-        const response = await resend.emails.send({
-          from: 'Zorian Loans <onboarding@resend.dev>',
-          to: 'support@zorianloanfinance.com',
-          replyTo: loanFormData.email,
-          subject: `New Auto Loan Application from ${loanFormData.fullName}`,
-          html: `
-            <h2>New Auto Loan Application</h2>
-            <p><strong>Name:</strong> ${loanFormData.fullName}</p>
-            <p><strong>Email:</strong> ${loanFormData.email}</p>
-            <p><strong>Phone:</strong> ${loanFormData.phone}</p>
-            <p><strong>Message:</strong> ${loanFormData.message || 'No additional message'}</p>
-            <h3>Loan Criteria</h3>
-            <p><strong>Vehicle Price:</strong> $${vehiclePrice.toLocaleString()}</p>
-            <p><strong>Down Payment:</strong> $${downPayment.toLocaleString()}</p>
-            <p><strong>Loan Amount:</strong> $${principal.toLocaleString()}</p>
-            <p><strong>Loan Term:</strong> ${term} months</p>
-            <p><strong>APR:</strong> ${apr}%</p>
-            <p><strong>Monthly Payment:</strong> $${parseFloat(monthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-            <p><strong>Total Interest:</strong> $${parseFloat(totalInterest).toLocaleString()}</p>
-            <p><strong>Total Repayment:</strong> $${parseFloat(totalRepayment).toLocaleString()}</p>
-          `
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: 'support@zorianloanfinance.com',
+            from: 'Zorian Loans <onboarding@resend.dev>',
+            subject: `New Auto Loan Application from ${loanFormData.fullName}`,
+            html: `
+              <h2>New Auto Loan Application</h2>
+              <p><strong>Name:</strong> ${loanFormData.fullName}</p>
+              <p><strong>Email:</strong> ${loanFormData.email}</p>
+              <p><strong>Phone:</strong> ${loanFormData.phone}</p>
+              <p><strong>Message:</strong> ${loanFormData.message || 'No additional message'}</p>
+              <h3>Loan Criteria</h3>
+              <p><strong>Vehicle Price:</strong> $${vehiclePrice.toLocaleString()}</p>
+              <p><strong>Down Payment:</strong> $${downPayment.toLocaleString()}</p>
+              <p><strong>Loan Amount:</strong> $${principal.toLocaleString()}</p>
+              <p><strong>Loan Term:</strong> ${term} months</p>
+              <p><strong>APR:</strong> ${apr}%</p>
+              <p><strong>Monthly Payment:</strong> $${parseFloat(monthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+              <p><strong>Total Interest:</strong> $${parseFloat(totalInterest).toLocaleString()}</p>
+              <p><strong>Total Repayment:</strong> $${parseFloat(totalRepayment).toLocaleString()}</p>
+            `
+          })
         })
 
-        if (response.data) {
+        const data = await response.json()
+
+        if (response.ok && data.id) {
           setLoanSubmitted(true)
           setLoanLoading(false)
           setTimeout(() => setLoanSubmitted(false), 5000)
@@ -95,6 +98,7 @@ export default function AutoLoansPage() {
           setLoanLoading(false)
         }
       } catch (err) {
+        console.error('Error:', err)
         setLoanError('Failed to submit application. Please try again.')
         setLoanLoading(false)
       }
