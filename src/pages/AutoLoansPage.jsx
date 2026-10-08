@@ -109,15 +109,6 @@ export default function AutoLoansPage() {
       }
     }
   }
-          setLoanLoading(false)
-        }
-      } catch (err) {
-        console.error('Error:', err)
-        setLoanError('Failed to submit application. Please try again.')
-        setLoanLoading(false)
-      }
-    }
-  }
 
   return (
     <div>
