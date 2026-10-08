@@ -54,7 +54,13 @@ export default function AutoLoansPage() {
       setLoanError('')
 
       try {
-        const payload = {
+        // Send directly to Formspree via HTML form
+        const form = document.createElement('form')
+        form.method = 'POST'
+        form.action = 'https://formspree.io/f/xppqpkyj'
+        form.style.display = 'none'
+
+        const fields = {
           fullName: loanFormData.fullName,
           email: loanFormData.email,
           phone: loanFormData.phone,
@@ -69,25 +75,40 @@ export default function AutoLoansPage() {
           totalRepayment: totalRepayment,
         }
 
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+        Object.keys(fields).forEach(key => {
+          const input = document.createElement('input')
+          input.type = 'hidden'
+          input.name = key
+          input.value = fields[key]
+          form.appendChild(input)
         })
 
-        if (response.ok) {
-          setLoanSubmitted(true)
-          setLoanLoading(false)
-          setTimeout(() => setLoanSubmitted(false), 5000)
-          setLoanFormData({
-            fullName: '',
-            email: '',
-            phone: '',
-            message: '',
-            consent: false,
-          })
-        } else {
-          setLoanError('Failed to submit application. Please try again.')
+        document.body.appendChild(form)
+        
+        // Submit form
+        form.submit()
+
+        // Success state
+        setLoanSubmitted(true)
+        setLoanLoading(false)
+        setTimeout(() => setLoanSubmitted(false), 5000)
+        setLoanFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          message: '',
+          consent: false,
+        })
+
+        // Remove form
+        document.body.removeChild(form)
+      } catch (err) {
+        console.error('Error:', err)
+        setLoanError('Failed to submit application. Please try again.')
+        setLoanLoading(false)
+      }
+    }
+  }
           setLoanLoading(false)
         }
       } catch (err) {

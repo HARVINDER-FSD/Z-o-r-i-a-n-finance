@@ -50,49 +50,60 @@ export default function ContactPage() {
       setError('')
 
       try {
-        // Send through our server to Formspree
-        const payload = {
+        // Send directly to Formspree via HTML form
+        const form = document.createElement('form')
+        form.method = 'POST'
+        form.action = 'https://formspree.io/f/xppqpkyj'
+        form.style.display = 'none'
+
+        const fields = {
           fullName: formData.fullName,
           email: formData.email,
           phone: formData.phone,
           reason: formData.reason,
           message: formData.message,
         }
-        
+
         // Add loan details if available
         if (loanDetails) {
-          payload.loanPurpose = loanDetails.purpose
-          payload.loanAmount = loanDetails.loanAmount
-          payload.loanTerm = loanDetails.term
-          payload.loanAPR = loanDetails.apr
-          payload.monthlyPayment = loanDetails.monthlyPayment
+          fields.loanPurpose = loanDetails.purpose
+          fields.loanAmount = loanDetails.loanAmount
+          fields.loanTerm = loanDetails.term
+          fields.loanAPR = loanDetails.apr
+          fields.monthlyPayment = loanDetails.monthlyPayment
         }
 
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+        Object.keys(fields).forEach(key => {
+          const input = document.createElement('input')
+          input.type = 'hidden'
+          input.name = key
+          input.value = fields[key]
+          form.appendChild(input)
         })
 
-        if (response.ok) {
-          setSubmitted(true)
-          setTimeout(() => setSubmitted(false), 5000)
-          setFormData({
-            fullName: '',
-            email: '',
-            phone: '',
-            reason: '',
-            message: '',
-            consent: false,
-          })
-          sessionStorage.removeItem('loanDetails')
-        } else {
-          setError('Failed to send message. Please try again.')
-        }
+        document.body.appendChild(form)
+        
+        // Submit form
+        form.submit()
+
+        // Success state
+        setSubmitted(true)
+        setTimeout(() => setSubmitted(false), 5000)
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          reason: '',
+          message: '',
+          consent: false,
+        })
+        sessionStorage.removeItem('loanDetails')
+
+        // Remove form
+        document.body.removeChild(form)
       } catch (err) {
         console.error('Error:', err)
         setError('Failed to send message. Please try again.')
-      } finally {
         setLoading(false)
       }
     }
