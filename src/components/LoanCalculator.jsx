@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoanCalculator() {
+  const navigate = useNavigate()
   const [loanAmount, setLoanAmount] = useState(20000)
   const [term, setTerm] = useState(48)
   const [purpose, setPurpose] = useState('auto')
@@ -34,7 +36,7 @@ export default function LoanCalculator() {
   const totalRepayment = (parseFloat(monthlyPayment) * term).toFixed(2)
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 sm:p-8">
+    <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 sm:p-8" data-calculator>
       <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
         <div>
           <h2 className="text-lg font-bold text-slate-900">Estimate Monthly Payment</h2>
@@ -138,12 +140,22 @@ export default function LoanCalculator() {
         </div>
 
         {/* Button */}
-        <a
-          href="/auto-loans"
+        <button
+          onClick={() => {
+            // Store loan details in sessionStorage
+            sessionStorage.setItem('loanDetails', JSON.stringify({
+              loanAmount,
+              term,
+              purpose,
+              apr: ratesByPurpose[purpose],
+              monthlyPayment,
+            }))
+            navigate('/contact')
+          }}
           className="w-full inline-flex items-center justify-center py-3.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl transition duration-150"
         >
           Get Started With This Rate
-        </a>
+        </button>
       </div>
     </div>
   )

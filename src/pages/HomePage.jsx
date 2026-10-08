@@ -42,18 +42,12 @@ export default function HomePage() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
                 <Link
-                  to="/auto-loans"
+                  to="/contact"
                   className="inline-flex items-center justify-center px-7 py-3.5 text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-500/20 transition-all"
                 >
                   Check Your Eligibility
                   <span className="material-symbols-outlined ml-2 text-lg">arrow_forward</span>
                 </Link>
-                <a
-                  href="#calculator"
-                  className="inline-flex items-center justify-center px-6 py-3.5 text-base font-bold text-slate-700 bg-white border border-slate-300 hover:border-slate-400 hover:bg-slate-50 rounded-xl transition-all"
-                >
-                  Calculate Your Payment
-                </a>
               </div>
 
               {/* Trust Markers */}
@@ -204,7 +198,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Auto Loans */}
             <Link
-              to="/auto-loans"
+              to="/contact"
               className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all flex flex-col justify-between group hover:border-blue-600"
             >
               <div>
@@ -240,7 +234,7 @@ export default function HomePage() {
 
             {/* Home Improvement */}
             <Link
-              to="/home-improvement"
+              to="/contact"
               className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all flex flex-col justify-between group hover:border-blue-600"
             >
               <div>
@@ -276,7 +270,7 @@ export default function HomePage() {
 
             {/* Emergency Loans */}
             <Link
-              to="/emergency-loans"
+              to="/contact"
               className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all flex flex-col justify-between group hover:border-blue-600"
             >
               <div>
@@ -312,7 +306,7 @@ export default function HomePage() {
 
             {/* Debt Consolidation */}
             <Link
-              to="/debt-consolidation"
+              to="/contact"
               className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all flex flex-col justify-between group hover:border-blue-600"
             >
               <div>

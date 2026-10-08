@@ -1,12 +1,26 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Resend } from 'resend'
 
 export default function AutoLoansPage() {
+  const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY)
   const [vehiclePrice, setVehiclePrice] = useState(25000)
   const [downPayment, setDownPayment] = useState(5000)
   const [term, setTerm] = useState(60)
   const [apr, setApr] = useState(5.99)
   const [monthlyPayment, setMonthlyPayment] = useState(0)
+
+  // Loan Application Form State
+  const [loanFormData, setLoanFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    message: '',
+    consent: false,
+  })
+  const [loanSubmitted, setLoanSubmitted] = useState(false)
+  const [loanLoading, setLoanLoading] = useState(false)
+  const [loanError, setLoanError] = useState('')
 
   useEffect(() => {
     const principal = vehiclePrice - downPayment
@@ -26,6 +40,66 @@ export default function AutoLoansPage() {
   const principal = vehiclePrice - downPayment
   const totalInterest = (monthlyPayment * term - principal).toFixed(2)
   const totalRepayment = (parseFloat(monthlyPayment) * term).toFixed(2)
+
+  const handleLoanFormChange = (e) => {
+    const { name, value, type, checked } = e.target
+    setLoanFormData({
+      ...loanFormData,
+      [name]: type === 'checkbox' ? checked : value,
+    })
+  }
+
+  const handleLoanSubmit = async (e) => {
+    e.preventDefault()
+    if (loanFormData.fullName && loanFormData.email && loanFormData.phone && loanFormData.consent) {
+      setLoanLoading(true)
+      setLoanError('')
+
+      try {
+        const response = await resend.emails.send({
+          from: 'Zorian Loans <onboarding@resend.dev>',
+          to: 'support@zorianloanfinance.com',
+          replyTo: loanFormData.email,
+          subject: `New Auto Loan Application from ${loanFormData.fullName}`,
+          html: `
+            <h2>New Auto Loan Application</h2>
+            <p><strong>Name:</strong> ${loanFormData.fullName}</p>
+            <p><strong>Email:</strong> ${loanFormData.email}</p>
+            <p><strong>Phone:</strong> ${loanFormData.phone}</p>
+            <p><strong>Message:</strong> ${loanFormData.message || 'No additional message'}</p>
+            <h3>Loan Criteria</h3>
+            <p><strong>Vehicle Price:</strong> $${vehiclePrice.toLocaleString()}</p>
+            <p><strong>Down Payment:</strong> $${downPayment.toLocaleString()}</p>
+            <p><strong>Loan Amount:</strong> $${principal.toLocaleString()}</p>
+            <p><strong>Loan Term:</strong> ${term} months</p>
+            <p><strong>APR:</strong> ${apr}%</p>
+            <p><strong>Monthly Payment:</strong> $${parseFloat(monthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+            <p><strong>Total Interest:</strong> $${parseFloat(totalInterest).toLocaleString()}</p>
+            <p><strong>Total Repayment:</strong> $${parseFloat(totalRepayment).toLocaleString()}</p>
+          `
+        })
+
+        if (response.data) {
+          setLoanSubmitted(true)
+          setLoanLoading(false)
+          setTimeout(() => setLoanSubmitted(false), 5000)
+          setLoanFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            message: '',
+            consent: false,
+          })
+        } else {
+          setLoanError('Failed to submit application. Please try again.')
+          setLoanLoading(false)
+        }
+      } catch (err) {
+        setLoanError('Failed to submit application. Please try again.')
+        setLoanLoading(false)
+      }
+    }
+  }
 
   return (
     <div>
@@ -49,18 +123,12 @@ export default function AutoLoansPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center h-12 px-8 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg"
-                >
-                  Check Your Eligibility
-                  <span className="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
-                </Link>
                 <a
                   href="#calculator-section"
-                  className="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-white text-slate-900 font-semibold hover:bg-slate-50 transition-all shadow-sm"
+                  className="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all shadow-md"
                 >
                   Calculate Your Payment
+                  <span className="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
                 </a>
               </div>
 
@@ -288,6 +356,177 @@ export default function AutoLoansPage() {
                   Calculator results are estimates. Actual APR may vary based on credit history and vehicle specifics.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Loan Application Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Submit Your Application</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                Apply for Your Auto Loan
+              </h2>
+              <p className="text-slate-600 text-sm mt-3">
+                Submit your loan criteria and we'll connect with you to finalize your application with custom pre-qualification rates.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+              <form onSubmit={handleLoanSubmit} className="space-y-6">
+                {/* Full Name */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-2">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={loanFormData.fullName}
+                    onChange={handleLoanFormChange}
+                    placeholder="Enter your full name"
+                    required
+                    className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                  />
+                </div>
+
+                {/* Email & Phone */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={loanFormData.email}
+                      onChange={handleLoanFormChange}
+                      placeholder="you@example.com"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-2">
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={loanFormData.phone}
+                      onChange={handleLoanFormChange}
+                      placeholder="(555) 000-0000"
+                      required
+                      className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                    />
+                  </div>
+                </div>
+
+                {/* Loan Criteria Display */}
+                <div className="p-6 rounded-xl bg-blue-50 border border-blue-200">
+                  <h3 className="font-bold text-slate-900 mb-4">Your Loan Criteria</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div>
+                      <p className="text-xs text-slate-500 font-semibold mb-1">Vehicle Price</p>
+                      <p className="font-bold text-slate-900">${vehiclePrice.toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 font-semibold mb-1">Down Payment</p>
+                      <p className="font-bold text-slate-900">${downPayment.toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 font-semibold mb-1">Loan Amount</p>
+                      <p className="font-bold text-slate-900">${principal.toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 font-semibold mb-1">Loan Term</p>
+                      <p className="font-bold text-slate-900">{term} Months</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 font-semibold mb-1">APR</p>
+                      <p className="font-bold text-slate-900">{apr}%</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 font-semibold mb-1">Monthly Payment</p>
+                      <p className="font-bold text-blue-600">${parseFloat(monthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Optional Message */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-2">
+                    Additional Notes (Optional)
+                  </label>
+                  <textarea
+                    name="message"
+                    value={loanFormData.message}
+                    onChange={handleLoanFormChange}
+                    placeholder="Tell us anything else about your situation or preferences..."
+                    maxLength="500"
+                    rows="3"
+                    className="w-full p-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition resize-none"
+                  ></textarea>
+                </div>
+
+                {/* Consent */}
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    checked={loanFormData.consent}
+                    onChange={handleLoanFormChange}
+                    required
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-600"
+                  />
+                  <label className="text-sm text-slate-600 leading-relaxed">
+                    I acknowledge receipt of Zorian Loan Finance's Consumer Privacy Notice and consent to be contacted regarding my loan application.
+                  </label>
+                </div>
+
+                {/* Security Banner */}
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-blue-50">
+                  <span className="material-symbols-outlined text-blue-600 text-[20px] shrink-0 mt-0.5">lock</span>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    <strong className="text-slate-900">Security Alert:</strong> Please do not submit confidential information such as full Social Security Numbers or bank account details via this form.
+                  </p>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={loanLoading}
+                  className="w-full h-12 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span>{loanLoading ? 'Submitting Application...' : 'Submit Loan Application'}</span>
+                  <span className={`material-symbols-outlined text-[18px] ${loanLoading ? 'animate-spin' : ''}`}>
+                    {loanLoading ? 'hourglass_empty' : 'send'}
+                  </span>
+                </button>
+
+                {/* Error Message */}
+                {loanError && (
+                  <div className="p-4 rounded-lg bg-red-50">
+                    <p className="text-sm text-red-600">{loanError}</p>
+                  </div>
+                )}
+              </form>
+
+              {/* Success Message */}
+              {loanSubmitted && (
+                <div className="p-8 bg-emerald-50 rounded-xl text-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
+                    <span className="material-symbols-outlined text-3xl">check_circle</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">Application Submitted Successfully!</h3>
+                  <p className="mt-2 text-slate-600 max-w-md mx-auto">
+                    Thank you for submitting your auto loan application. Our team will review your criteria and contact you within 24 hours with personalized rates and next steps.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

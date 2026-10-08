@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Resend } from 'resend'
 
 export default function ContactPage() {
+  const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY)
+  const [loanDetails, setLoanDetails] = useState(null)
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -11,6 +14,28 @@ export default function ContactPage() {
     consent: false,
   })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  // Load loan details from sessionStorage
+  useEffect(() => {
+    const stored = sessionStorage.getItem('loanDetails')
+    if (stored) {
+      setLoanDetails(JSON.parse(stored))
+      // Auto-set reason based on loan purpose
+      const details = JSON.parse(stored)
+      const reasonMap = {
+        auto: 'auto-loan',
+        home: 'home-improvement',
+        emergency: 'emergency-loan',
+        debt: 'debt-consolidation',
+      }
+      setFormData(prev => ({
+        ...prev,
+        reason: reasonMap[details.purpose] || 'general'
+      }))
+    }
+  }, [])
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -20,19 +45,82 @@ export default function ContactPage() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (formData.fullName && formData.email && formData.reason && formData.message && formData.consent) {
-      setSubmitted(true)
-      setTimeout(() => setSubmitted(false), 5000)
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        reason: '',
-        message: '',
-        consent: false,
-      })
+    if (formData.fullName && formData.email && formData.phone && formData.reason && formData.message && formData.consent) {
+      setLoading(true)
+      setError('')
+
+      try {
+        const emailBody = `
+New Loan Inquiry Received:
+
+PERSONAL DETAILS:
+Name: ${formData.fullName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Reason: ${formData.reason}
+
+MESSAGE:
+${formData.message}
+
+${loanDetails ? `
+LOAN DETAILS:
+Purpose: ${loanDetails.purpose}
+Amount: $${loanDetails.loanAmount?.toLocaleString()}
+Term: ${loanDetails.term} months
+APR: ${loanDetails.apr}%
+Monthly Payment: $${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+` : ''}
+
+---
+Consent Given: Yes
+Please review and follow up accordingly.
+        `
+
+        const response = await resend.emails.send({
+          from: 'Zorian Loans <onboarding@resend.dev>',
+          to: 'support@zorianloanfinance.com',
+          replyTo: formData.email,
+          subject: `New Loan Application from ${formData.fullName}`,
+          html: `
+            <h2>New Loan Inquiry</h2>
+            <p><strong>Name:</strong> ${formData.fullName}</p>
+            <p><strong>Email:</strong> ${formData.email}</p>
+            <p><strong>Phone:</strong> ${formData.phone}</p>
+            <p><strong>Reason:</strong> ${formData.reason}</p>
+            <p><strong>Message:</strong> ${formData.message}</p>
+            ${loanDetails ? `
+              <h3>Loan Details</h3>
+              <p><strong>Purpose:</strong> ${loanDetails.purpose}</p>
+              <p><strong>Amount:</strong> $${loanDetails.loanAmount?.toLocaleString()}</p>
+              <p><strong>Term:</strong> ${loanDetails.term} months</p>
+              <p><strong>APR:</strong> ${loanDetails.apr}%</p>
+              <p><strong>Monthly Payment:</strong> $${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+            ` : ''}
+          `
+        })
+
+        if (response.data) {
+          setSubmitted(true)
+          setTimeout(() => setSubmitted(false), 5000)
+          setFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            reason: '',
+            message: '',
+            consent: false,
+          })
+          sessionStorage.removeItem('loanDetails')
+        } else {
+          setError('Failed to send message. Please try again.')
+        }
+      } catch (err) {
+        setError('Failed to send message. Please try again.')
+      } finally {
+        setLoading(false)
+      }
     }
   }
 
@@ -55,13 +143,13 @@ export default function ContactPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/auto-loans"
+            <a
+              href="#inquiry-form"
               className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-all shadow-md"
             >
-              Check Eligibility
+              Submit Inquiry
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </Link>
+            </a>
             <a
               href="#faq"
               className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-lg bg-white border border-slate-300 text-slate-900 font-bold hover:bg-slate-50 transition-all"
@@ -121,7 +209,7 @@ export default function ContactPage() {
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Form */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
+          <div className="lg:col-span-7 flex flex-col gap-6" id="inquiry-form">
             <div className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
               <div className="mb-8">
                 <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Inquiry Form</span>
@@ -132,6 +220,40 @@ export default function ContactPage() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Loan Details Display */}
+                {loanDetails && (
+                  <div className="p-6 rounded-xl bg-blue-50 border border-blue-200">
+                    <h3 className="font-bold text-slate-900 mb-4">Your Loan Inquiry</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold mb-1">Loan Purpose</p>
+                        <p className="font-bold text-slate-900 capitalize">
+                          {loanDetails.purpose === 'auto' && 'Auto Financing'}
+                          {loanDetails.purpose === 'home' && 'Home Renovation'}
+                          {loanDetails.purpose === 'debt' && 'Debt Consolidation'}
+                          {loanDetails.purpose === 'emergency' && 'Personal/Emergency'}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold mb-1">Loan Amount</p>
+                        <p className="font-bold text-slate-900">${loanDetails.loanAmount?.toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold mb-1">Term</p>
+                        <p className="font-bold text-slate-900">{loanDetails.term} Months</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold mb-1">Est. APR</p>
+                        <p className="font-bold text-slate-900">{loanDetails.apr}%</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 font-semibold mb-1">Monthly Payment</p>
+                        <p className="font-bold text-blue-600">${parseFloat(loanDetails.monthlyPayment)?.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Full Name */}
                 <div>
                   <label className="block text-sm font-bold text-slate-900 mb-2">
@@ -142,7 +264,7 @@ export default function ContactPage() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleChange}
-                    placeholder="Enter your full legal name"
+                    placeholder="Enter your full name"
                     required
                     className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
                   />
@@ -166,7 +288,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-slate-900 mb-2">
-                      Phone Number <span className="text-slate-500 font-normal">(Optional)</span>
+                      Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
@@ -174,6 +296,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="(555) 000-0000"
+                      required
                       className="w-full h-12 pl-4 pr-4 bg-slate-50 text-slate-900 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
                     />
                   </div>
@@ -246,11 +369,21 @@ export default function ContactPage() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full h-12 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md"
+                  disabled={loading}
+                  className="w-full h-12 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>Send Secure Message</span>
-                  <span className="material-symbols-outlined text-[18px]">send</span>
+                  <span>{loading ? 'Sending...' : 'Send Secure Message'}</span>
+                  <span className={`material-symbols-outlined text-[18px] ${loading ? 'animate-spin' : ''}`}>
+                    {loading ? 'hourglass_empty' : 'send'}
+                  </span>
                 </button>
+
+                {/* Error Message */}
+                {error && (
+                  <div className="p-4 rounded-lg bg-red-50">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
               </form>
 
               {/* Success Message */}
