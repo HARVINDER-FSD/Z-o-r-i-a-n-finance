@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
-import Home from './pages/Home';
+import Home from './pages/HomeMain';
 import AutoLoans from './pages/AutoLoans';
 import PersonalLoans from './pages/PersonalLoans';
 import HomeImprovement from './pages/HomeImprovement';
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="app">
-      <Navigation setPage={setCurrentPage} />
+      <Navigation setPage={setCurrentPage} currentPage={currentPage} />
       <main className="main-content">
         {renderPage()}
       </main>

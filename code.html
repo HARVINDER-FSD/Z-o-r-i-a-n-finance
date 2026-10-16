@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zorian Loan Finance - Smart Consumer Lending</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: "#0B1F3A",
+              dark: "#071426",
+              blue: "#2563EB",
+              blueHover: "#1D4ED8",
+              blueLight: "#EFF6FF",
+              accent: "#38BDF8",
+              green: "#16A34A",
+              greenLight: "#DCFCE7",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              border: "#E2E8F0",
+              text: "#0F172A",
+              muted: "#64748B"
+            }
+          },
+          fontFamily: {
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Manrope', system-ui, sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-brand-bg text-brand-text antialiased selection:bg-brand-blue selection:text-white">
+
+  <!-- TOP PROMO BANNER -->
+  <aside class="bg-brand-dark text-white text-xs py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-2">
+    <span class="inline-block w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+    <span class="font-medium">Fast, transparent consumer financing with zero hidden origination fees.</span>
+    <a href="#calculator" class="text-brand-accent hover:underline font-semibold ml-1">Check rates today &rarr;</a>
+  </aside>
+
+  <!-- STICKY NAVBAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-brand-navy flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+          <svg class="w-6 h-6" viewBox="0 0 40 40" fill="none">
+            <path d="M10 12H30L14 28H30" stroke="#2563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 12L30 20M30 12H22V20" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-xl tracking-tight text-brand-navy leading-none">ZORIAN</span>
+          <span class="text-[10px] font-bold tracking-widest text-brand-blue uppercase mt-0.5">Loan Finance</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-8">
+        <a href="#how-it-works" class="text-sm font-semibold text-brand-muted hover:text-brand-navy transition-colors">How It Works</a>
+        
+        <!-- Loans Dropdown -->
+        <div class="relative group py-2">
+          <button class="flex items-center gap-1 text-sm font-semibold text-brand-muted group-hover:text-brand-navy transition-colors focus:outline-none">
+            <span>Loans</span>
+            <span class="material-symbols-outlined text-[18px] transition-transform group-hover:rotate-180">expand_more</span>
+          </button>
+          <div class="absolute left-0 top-full pt-2 w-64 hidden group-hover:block transition-all">
+            <div class="bg-white rounded-2xl shadow-xl border border-brand-border p-2 space-y-1">
+              <a href="#auto-loans" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-blueLight transition-colors">
+                <span class="material-symbols-outlined text-brand-blue text-[20px]">directions_car</span>
+                <div>
+                  <div class="text-xs font-bold text-brand-navy">Auto Loans</div>
+                  <div class="text-[11px] text-brand-muted">Rates from 5.99% APR</div>
+                </div>
+              </a>
+              <a href="#home-loans" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-blueLight transition-colors">
+                <span class="material-symbols-outlined text-brand-blue text-[20px]">home_repair_service</span>
+                <div>
+                  <div class="text-xs font-bold text-brand-navy">Home Improvement</div>
+                  <div class="text-[11px] text-brand-muted">Borrow up to $100k</div>
+                </div>
+              </a>
+              <a href="#emergency-loans" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-blueLight transition-colors">
+                <span class="material-symbols-outlined text-brand-blue text-[20px]">emergency</span>
+                <div>
+                  <div class="text-xs font-bold text-brand-navy">Emergency Loans</div>
+                  <div class="text-[11px] text-brand-muted">Expedited disbursement</div>
+                </div>
+              </a>
+              <a href="#debt-loans" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-blueLight transition-colors">
+                <span class="material-symbols-outlined text-brand-blue text-[20px]">account_balance_wallet</span>
+                <div>
+                  <div class="text-xs font-bold text-brand-navy">Debt Consolidation</div>
+                  <div class="text-[11px] text-brand-muted">Single lower payment</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="#tools" class="text-sm font-semibold text-brand-muted hover:text-brand-navy transition-colors">Calculators & Tools</a>
+        <a href="#about" class="text-sm font-semibold text-brand-muted hover:text-brand-navy transition-colors">About Us</a>
+        <a href="#faq" class="text-sm font-semibold text-brand-muted hover:text-brand-navy transition-colors">FAQ</a>
+      </nav>
+
+      <!-- Right CTAs -->
+      <div class="flex items-center gap-4">
+        <a href="#login" class="hidden sm:inline-block text-sm font-semibold text-brand-navy hover:text-brand-blue transition-colors px-3 py-2">Log In</a>
+        <a href="#eligibility" class="inline-flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blueHover text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all">
+          <span>Check Eligibility</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1: HERO & LOAN CALCULATOR -->
+    <section class="relative bg-gradient-to-b from-white via-brand-bg to-brand-bg pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden">
+      <div class="absolute -top-40 right-1/4 w-[500px] h-[500px] bg-brand-blue/5 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Hero Copy (7 cols) -->
+          <div class="lg:col-span-7 flex flex-col gap-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-blueLight border border-brand-blue/20 text-brand-blue text-xs font-extrabold uppercase tracking-wider w-fit">
+              <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+              SMARTER BORROWING
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-navy tracking-tight leading-[1.12]">
+              Loans Designed <br class="hidden sm:inline"/>
+              <span class="text-brand-blue">Around Your Needs</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-brand-muted max-w-xl leading-relaxed">
+              Explore flexible financing options with a simple, secure application experience. Get funds as soon as the next business day with clear, predictable rates.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              <a href="#eligibility" class="inline-flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blueHover text-white px-8 py-4 rounded-xl font-bold text-base shadow-lg shadow-brand-blue/25 hover:shadow-xl transition-all">
+                <span>Check Your Eligibility</span>
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+              </a>
+              <a href="#calculator" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-brand-navy border border-brand-border px-6 py-4 rounded-xl font-bold text-base shadow-sm transition-all">
+                <span class="material-symbols-outlined text-brand-blue text-[20px]">calculate</span>
+                <span>Calculate Payment</span>
+              </a>
+            </div>
+
+            <!-- Trust Checkmarks -->
+            <div class="pt-4 flex flex-wrap items-center gap-6 text-sm text-brand-muted">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-brand-green text-[20px]">check_circle</span>
+                <span class="font-semibold text-brand-navy">Secure Application</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-brand-green text-[20px]">check_circle</span>
+                <span class="font-semibold text-brand-navy">Simple Process</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-brand-green text-[20px]">check_circle</span>
+                <span class="font-semibold text-brand-navy">Transparent Terms</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Calculator Card (5 cols) -->
+          <div class="lg:col-span-5" id="calculator">
+            <div class="bg-white rounded-3xl p-7 sm:p-8 shadow-xl border border-brand-border relative">
+              <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+                <div>
+                  <span class="text-xs font-bold text-brand-blue uppercase tracking-wider">Fast Estimator</span>
+                  <h2 class="text-xl font-extrabold text-brand-navy">Estimate Your Payment</h2>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-brand-blueLight flex items-center justify-center text-brand-blue">
+                  <span class="material-symbols-outlined text-[24px]">finance_mode</span>
+                </div>
+              </div>
+
+              <!-- Form Controls -->
+              <div class="space-y-5 pt-6">
+                <!-- Amount Slider -->
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-brand-muted">Loan Amount</label>
+                    <span class="text-xl font-extrabold text-brand-navy" id="hero-amount-val">$25,000</span>
+                  </div>
+                  <input type="range" min="2000" max="75000" step="500" value="25000" id="hero-amount-range" class="w-full h-2.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-brand-blue"/>
+                  <div class="flex justify-between text-xs text-brand-muted mt-1">
+                    <span>$2,000</span>
+                    <span>$75,000</span>
+                  </div>
+                </div>
+
+                <!-- Purpose & Term Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1.5">Loan Purpose</label>
+                    <select id="hero-purpose-select" class="w-full bg-slate-50 border border-brand-border rounded-xl px-3 py-2.5 text-sm font-semibold text-brand-navy focus:outline-none focus:border-brand-blue cursor-pointer">
+                      <option value="5.99">Auto Loan (5.99%)</option>
+                      <option value="6.49">Home Remodel (6.49%)</option>
+                      <option value="8.99">Emergency Loan (8.99%)</option>
+                      <option value="7.25">Debt Consolidation (7.25%)</option>
+                      <option value="9.50">Personal Funding (9.50%)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1.5">Loan Term</label>
+                    <select id="hero-term-select" class="w-full bg-slate-50 border border-brand-border rounded-xl px-3 py-2.5 text-sm font-semibold text-brand-navy focus:outline-none focus:border-brand-blue cursor-pointer">
+                      <option value="36">36 Months</option>
+                      <option value="48">48 Months</option>
+                      <option value="60" selected>60 Months</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Monthly Output Box -->
+                <div class="bg-brand-blueLight/60 border border-brand-blue/20 rounded-2xl p-5 flex flex-col gap-1">
+                  <div class="flex items-center justify-between text-xs font-bold text-brand-muted">
+                    <span>Estimated Monthly Payment</span>
+                    <span class="px-2 py-0.5 rounded-full bg-brand-greenLight text-brand-green font-bold">Fixed APR</span>
+                  </div>
+                  <div class="flex items-baseline gap-2 mt-1">
+                    <span class="text-4xl font-extrabold text-brand-navy leading-none">$<span id="hero-monthly-display">483.15</span></span>
+                    <span class="text-sm font-medium text-brand-muted">/month</span>
+                  </div>
+                  <p class="text-xs text-brand-muted mt-2 leading-relaxed">
+                    Estimated payment. Final terms are subject to approval and applicable terms.
+                  </p>
+                </div>
+
+                <a href="#eligibility" class="w-full inline-flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blueHover text-white py-4 rounded-xl font-bold text-base shadow-md transition-all">
+                  <span>Get Started with This Estimate</span>
+                  <span class="material-symbols-outlined text-[18px]">bolt</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 4 PILLARS ("A Simpler Way to Borrow") -->
+    <section class="py-20 bg-white border-y border-brand-border" id="how-it-works">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Why Choose Zorian</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-2">A Simpler Way to Borrow</h2>
+          <p class="text-base text-brand-muted mt-3">We engineered our lending platform to remove institutional obstacles, excessive wait times, and confusing fine print.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Card 01 -->
+          <div class="bg-brand-bg rounded-2xl p-8 border border-brand-border/70 hover:border-brand-blue/40 hover:shadow-lg transition-all flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-3xl font-extrabold text-slate-300 group-hover:text-brand-blue transition-colors">01</span>
+                <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm">
+                  <span class="material-symbols-outlined text-[24px]">speed</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-brand-navy mb-2">Fast Process</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">Complete a simple online application with algorithmic decisioning in under 3 minutes.</p>
+            </div>
+            <div class="pt-6 mt-4 flex items-center gap-1.5 text-xs font-bold text-brand-blue">
+              <span>Next-Day ACH Funding</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Card 02 -->
+          <div class="bg-brand-bg rounded-2xl p-8 border border-brand-border/70 hover:border-brand-blue/40 hover:shadow-lg transition-all flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-3xl font-extrabold text-slate-300 group-hover:text-brand-blue transition-colors">02</span>
+                <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm">
+                  <span class="material-symbols-outlined text-[24px]">lock</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-brand-navy mb-2">Secure</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">Your information is handled through a secure application experience protected with 256-bit encryption.</p>
+            </div>
+            <div class="pt-6 mt-4 flex items-center gap-1.5 text-xs font-bold text-brand-blue">
+              <span>Bank-Grade Safeguards</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Card 03 -->
+          <div class="bg-brand-bg rounded-2xl p-8 border border-brand-border/70 hover:border-brand-blue/40 hover:shadow-lg transition-all flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-3xl font-extrabold text-slate-300 group-hover:text-brand-blue transition-colors">03</span>
+                <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm">
+                  <span class="material-symbols-outlined text-[24px]">tune</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-brand-navy mb-2">Flexible Options</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">Explore loan options based on your needs with fixed schedules and zero prepayment penalties.</p>
+            </div>
+            <div class="pt-6 mt-4 flex items-center gap-1.5 text-xs font-bold text-brand-blue">
+              <span>$0 Prepayment Fees</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Card 04 -->
+          <div class="bg-brand-bg rounded-2xl p-8 border border-brand-border/70 hover:border-brand-blue/40 hover:shadow-lg transition-all flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-3xl font-extrabold text-slate-300 group-hover:text-brand-blue transition-colors">04</span>
+                <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm">
+                  <span class="material-symbols-outlined text-[24px]">support_agent</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-brand-navy mb-2">Support</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">Get help throughout your application journey with US-based loan specialists ready to guide you.</p>
+            </div>
+            <div class="pt-6 mt-4 flex items-center gap-1.5 text-xs font-bold text-brand-blue">
+              <span>Email & Phone Access</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 4 LARGE LOAN CARDS ("Find the Right Loan for You") -->
+    <section class="py-24 bg-brand-bg" id="loan-products">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+          <div>
+            <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Tailored Financing</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-2">Find the Right Loan for You</h2>
+            <p class="text-base text-brand-muted mt-2">Choose the financing option that best matches your needs.</p>
+          </div>
+          <a href="#comparison" class="inline-flex items-center gap-1.5 text-sm font-bold text-brand-blue hover:text-brand-blueHover">
+            <span>Compare all loan features</span>
+            <span class="material-symbols-outlined text-[18px]">trending_flat</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Card 1: Auto -->
+          <div class="bg-white rounded-3xl p-7 border border-brand-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between" id="auto-loans">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-brand-blueLight flex items-center justify-center text-brand-blue mb-6">
+                <span class="material-symbols-outlined text-[32px]">directions_car</span>
+              </div>
+              <span class="inline-block px-2.5 py-1 rounded-full bg-brand-greenLight text-brand-green text-xs font-bold mb-3">From 5.99% APR</span>
+              <h3 class="text-2xl font-bold text-brand-navy mb-2">Auto Loans</h3>
+              <p class="text-sm text-brand-muted leading-relaxed mb-6">
+                Finance your next vehicle with flexible financing options, competitive rates, and direct dealer or private payout.
+              </p>
+            </div>
+            <div>
+              <div class="bg-brand-bg p-3 rounded-xl mb-4 text-xs flex justify-between font-semibold">
+                <span class="text-brand-muted">Max Amount:</span>
+                <span class="text-brand-navy font-bold">$75,000</span>
+              </div>
+              <a href="#eligibility" class="w-full inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-brand-blue text-white py-3 rounded-xl text-sm font-bold transition-colors">
+                <span>Explore Auto Loans</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Home Improvement -->
+          <div class="bg-white rounded-3xl p-7 border border-brand-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between" id="home-loans">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-brand-blueLight flex items-center justify-center text-brand-blue mb-6">
+                <span class="material-symbols-outlined text-[32px]">home_repair_service</span>
+              </div>
+              <span class="inline-block px-2.5 py-1 rounded-full bg-blue-100 text-brand-blue text-xs font-bold mb-3">Up to $100,000</span>
+              <h3 class="text-2xl font-bold text-brand-navy mb-2">Home Improvement</h3>
+              <p class="text-sm text-brand-muted leading-relaxed mb-6">
+                Finance projects that make your home work better for you. Remodel kitchens, replace roofs, or install energy fixtures.
+              </p>
+            </div>
+            <div>
+              <div class="bg-brand-bg p-3 rounded-xl mb-4 text-xs flex justify-between font-semibold">
+                <span class="text-brand-muted">Starting Rate:</span>
+                <span class="text-brand-navy font-bold">6.49% APR</span>
+              </div>
+              <a href="#eligibility" class="w-full inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-brand-blue text-white py-3 rounded-xl text-sm font-bold transition-colors">
+                <span>Explore Home Improvement</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Emergency Loans -->
+          <div class="bg-white rounded-3xl p-7 border border-brand-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between" id="emergency-loans">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-brand-blueLight flex items-center justify-center text-brand-blue mb-6">
+                <span class="material-symbols-outlined text-[32px]">emergency</span>
+              </div>
+              <span class="inline-block px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-3">Same-Day Review</span>
+              <h3 class="text-2xl font-bold text-brand-navy mb-2">Emergency Loans</h3>
+              <p class="text-sm text-brand-muted leading-relaxed mb-6">
+                Explore financing options for unexpected expenses, sudden auto repairs, or urgent healthcare bills without delays.
+              </p>
+            </div>
+            <div>
+              <div class="bg-brand-bg p-3 rounded-xl mb-4 text-xs flex justify-between font-semibold">
+                <span class="text-brand-muted">Speed:</span>
+                <span class="text-brand-green font-bold">Next-Day Disbursal</span>
+              </div>
+              <a href="#eligibility" class="w-full inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-brand-blue text-white py-3 rounded-xl text-sm font-bold transition-colors">
+                <span>Explore Emergency Loans</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Debt Consolidation -->
+          <div class="bg-white rounded-3xl p-7 border border-brand-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between" id="debt-loans">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-brand-blueLight flex items-center justify-center text-brand-blue mb-6">
+                <span class="material-symbols-outlined text-[32px]">account_balance_wallet</span>
+              </div>
+              <span class="inline-block px-2.5 py-1 rounded-full bg-brand-greenLight text-brand-green text-xs font-bold mb-3">Single Payment</span>
+              <h3 class="text-2xl font-bold text-brand-navy mb-2">Debt Consolidation</h3>
+              <p class="text-sm text-brand-muted leading-relaxed mb-6">
+                Bring multiple eligible debts together into a simpler payment structure with potentially lower interest rates.
+              </p>
+            </div>
+            <div>
+              <div class="bg-brand-bg p-3 rounded-xl mb-4 text-xs flex justify-between font-semibold">
+                <span class="text-brand-muted">Max Term:</span>
+                <span class="text-brand-navy font-bold">Up to 60 Months</span>
+              </div>
+              <a href="#eligibility" class="w-full inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-brand-blue text-white py-3 rounded-xl text-sm font-bold transition-colors">
+                <span>Explore Debt Consolidation</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: TOOLS TO HELP YOU PLAN (4 Cards) -->
+    <section class="py-20 bg-white border-y border-brand-border" id="tools">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Self-Service Resources</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-2">Tools to Help You Plan</h2>
+          <p class="text-base text-brand-muted mt-2">Take control of your finances with interactive estimators and checklists designed for clarity.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <a href="#comparison" class="bg-brand-bg hover:bg-brand-blueLight/50 p-6 rounded-2xl border border-brand-border transition-all flex flex-col justify-between group">
+            <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm mb-4">
+              <span class="material-symbols-outlined text-[24px]">compare_arrows</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-brand-navy mb-1">Compare Loan Options</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">Side-by-side APRs, terms, and payment thresholds for every product.</p>
+            </div>
+            <span class="mt-4 text-xs font-bold text-brand-blue flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              View Comparison Table &rarr;
+            </span>
+          </a>
+
+          <a href="#eligibility" class="bg-brand-bg hover:bg-brand-blueLight/50 p-6 rounded-2xl border border-brand-border transition-all flex flex-col justify-between group">
+            <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm mb-4">
+              <span class="material-symbols-outlined text-[24px]">verified</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-brand-navy mb-1">Check Eligibility</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">Instant 2-minute soft inquiry that will not affect your credit score.</p>
+            </div>
+            <span class="mt-4 text-xs font-bold text-brand-blue flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Check Pre-Approval &rarr;
+            </span>
+          </a>
+
+          <a href="#savings-calculator" class="bg-brand-bg hover:bg-brand-blueLight/50 p-6 rounded-2xl border border-brand-border transition-all flex flex-col justify-between group">
+            <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm mb-4">
+              <span class="material-symbols-outlined text-[24px]">calculate</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-brand-navy mb-1">Payment Calculator</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">See how much you could save by consolidating higher-rate balances.</p>
+            </div>
+            <span class="mt-4 text-xs font-bold text-brand-blue flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Calculate Savings &rarr;
+            </span>
+          </a>
+
+          <a href="#checklist-section" class="bg-brand-bg hover:bg-brand-blueLight/50 p-6 rounded-2xl border border-brand-border transition-all flex flex-col justify-between group">
+            <div class="w-12 h-12 rounded-xl bg-white border border-brand-border flex items-center justify-center text-brand-blue shadow-sm mb-4">
+              <span class="material-symbols-outlined text-[24px]">fact_check</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-brand-navy mb-1">Document Checklist</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">Prepare the 6 required documents to guarantee same-day approval review.</p>
+            </div>
+            <span class="mt-4 text-xs font-bold text-brand-blue flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Review Checklist &rarr;
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: INTERACTIVE COMPARISON TABLE WITH TABS -->
+    <section class="py-20 bg-brand-bg" id="comparison">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Transparent Rates</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-2">Compare Loan Options</h2>
+          <p class="text-base text-brand-muted mt-2">Evaluate starting rates, terms, and sample payments across our lending suite.</p>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-brand-border shadow-md overflow-hidden p-6 sm:p-8">
+          <!-- Filter Tabs -->
+          <div class="flex flex-wrap gap-2 pb-6 border-b border-brand-border" id="tab-buttons">
+            <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-navy text-white transition-colors" data-cat="all">All Loans</button>
+            <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-brand-muted hover:text-brand-navy transition-colors" data-cat="auto">Auto</button>
+            <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-brand-muted hover:text-brand-navy transition-colors" data-cat="home">Home Improvement</button>
+            <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-brand-muted hover:text-brand-navy transition-colors" data-cat="emergency">Emergency</button>
+            <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-brand-muted hover:text-brand-navy transition-colors" data-cat="debt">Debt Consolidation</button>
+            <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-brand-muted hover:text-brand-navy transition-colors" data-cat="personal">Personal</button>
+          </div>
+
+          <!-- Table Container -->
+          <div class="overflow-x-auto mt-6">
+            <table class="w-full text-left text-sm">
+              <thead>
+                <tr class="text-xs uppercase tracking-wider text-brand-muted border-b border-brand-border bg-slate-50/50">
+                  <th class="py-4 px-6 font-bold">Loan Type</th>
+                  <th class="py-4 px-6 font-bold">Estimated APR</th>
+                  <th class="py-4 px-6 font-bold">Loan Amount</th>
+                  <th class="py-4 px-6 font-bold">Loan Term</th>
+                  <th class="py-4 px-6 font-bold">Sample Monthly Payment ($10k)</th>
+                  <th class="py-4 px-6 text-right font-bold">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-brand-border" id="comparison-rows">
+                <tr class="hover:bg-slate-50/80 transition-colors" data-row="auto">
+                  <td class="py-5 px-6 font-bold text-brand-navy flex items-center gap-3">
+                    <span class="material-symbols-outlined text-brand-blue">directions_car</span>
+                    <span>Auto Loan</span>
+                  </td>
+                  <td class="py-5 px-6 font-extrabold text-brand-green">5.99% – 14.99%</td>
+                  <td class="py-5 px-6 font-medium text-brand-navy">$5,000 – $75,000</td>
+                  <td class="py-5 px-6 text-brand-muted">Up to 60 mos</td>
+                  <td class="py-5 px-6 font-extrabold text-brand-navy">$193.30</td>
+                  <td class="py-5 px-6 text-right">
+                    <a href="#eligibility" class="inline-block bg-brand-blue hover:bg-brand-blueHover text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors">Compare Options</a>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80 transition-colors" data-row="home">
+                  <td class="py-5 px-6 font-bold text-brand-navy flex items-center gap-3">
+                    <span class="material-symbols-outlined text-brand-blue">home_repair_service</span>
+                    <span>Home Improvement</span>
+                  </td>
+                  <td class="py-5 px-6 font-extrabold text-brand-green">6.49% – 15.49%</td>
+                  <td class="py-5 px-6 font-medium text-brand-navy">$5,000 – $100,000</td>
+                  <td class="py-5 px-6 text-brand-muted">Up to 60 mos</td>
+                  <td class="py-5 px-6 font-extrabold text-brand-navy">$195.60</td>
+                  <td class="py-5 px-6 text-right">
+                    <a href="#eligibility" class="inline-block bg-brand-blue hover:bg-brand-blueHover text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors">Compare Options</a>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80 transition-colors" data-row="emergency">
+                  <td class="py-5 px-6 font-bold text-brand-navy flex items-center gap-3">
+                    <span class="material-symbols-outlined text-brand-blue">emergency</span>
+                    <span>Emergency Loan</span>
+                  </td>
+                  <td class="py-5 px-6 font-extrabold text-brand-green">8.99% – 19.99%</td>
+                  <td class="py-5 px-6 font-medium text-brand-navy">$1,000 – $25,000</td>
+                  <td class="py-5 px-6 text-brand-muted">Up to 36 mos</td>
+                  <td class="py-5 px-6 font-extrabold text-brand-navy">$317.90</td>
+                  <td class="py-5 px-6 text-right">
+                    <a href="#eligibility" class="inline-block bg-brand-blue hover:bg-brand-blueHover text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors">Compare Options</a>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80 transition-colors" data-row="debt">
+                  <td class="py-5 px-6 font-bold text-brand-navy flex items-center gap-3">
+                    <span class="material-symbols-outlined text-brand-blue">account_balance_wallet</span>
+                    <span>Debt Consolidation</span>
+                  </td>
+                  <td class="py-5 px-6 font-extrabold text-brand-green">7.25% – 16.99%</td>
+                  <td class="py-5 px-6 font-medium text-brand-navy">$5,000 – $60,000</td>
+                  <td class="py-5 px-6 text-brand-muted">Up to 60 mos</td>
+                  <td class="py-5 px-6 font-extrabold text-brand-navy">$199.19</td>
+                  <td class="py-5 px-6 text-right">
+                    <a href="#eligibility" class="inline-block bg-brand-blue hover:bg-brand-blueHover text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors">Compare Options</a>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80 transition-colors" data-row="personal">
+                  <td class="py-5 px-6 font-bold text-brand-navy flex items-center gap-3">
+                    <span class="material-symbols-outlined text-brand-blue">person</span>
+                    <span>Personal Loan</span>
+                  </td>
+                  <td class="py-5 px-6 font-extrabold text-brand-green">12.99% – 24.99%</td>
+                  <td class="py-5 px-6 font-medium text-brand-navy">$2,000 – $50,000</td>
+                  <td class="py-5 px-6 text-brand-muted">Up to 60 mos</td>
+                  <td class="py-5 px-6 font-extrabold text-brand-navy">$227.50</td>
+                  <td class="py-5 px-6 text-right">
+                    <a href="#eligibility" class="inline-block bg-brand-blue hover:bg-brand-blueHover text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors">Compare Options</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6 & 8: BENTO OF ELIGIBILITY STEPPER & APPLICATION CHECKLIST -->
+    <section class="py-20 bg-white border-b border-brand-border" id="eligibility">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Stepper Card: "See Which Options May Fit Your Needs" (7 cols) -->
+          <div class="lg:col-span-7 bg-brand-bg rounded-3xl p-8 border border-brand-border flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-brand-blue">Instant Pre-Qualification</span>
+                <span class="px-3 py-1 bg-brand-blueLight text-brand-blue rounded-full text-xs font-bold">Step 1 of 4</span>
+              </div>
+
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-navy">See Which Options May Fit Your Needs</h2>
+              <p class="text-sm text-brand-muted mt-2">Answer a few questions to explore potential financing options tailored to your situation.</p>
+
+              <!-- Progress bar -->
+              <div class="w-full bg-slate-200 h-2 rounded-full mt-6 overflow-hidden">
+                <div class="bg-brand-blue h-full rounded-full transition-all" style="width: 25%"></div>
+              </div>
+
+              <!-- Step 1 Content: Loan Purpose Selector -->
+              <div class="mt-8">
+                <label class="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-3">Select Loan Purpose</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="purpose-chips">
+                  <button type="button" class="chip active p-4 rounded-xl text-left bg-brand-blue text-white font-bold text-sm shadow-sm transition-all flex flex-col gap-2">
+                    <span class="material-symbols-outlined text-[22px]">directions_car</span>
+                    <span>Auto Loan</span>
+                  </button>
+                  <button type="button" class="chip p-4 rounded-xl text-left bg-white text-brand-navy border border-brand-border hover:border-brand-blue font-bold text-sm transition-all flex flex-col gap-2">
+                    <span class="material-symbols-outlined text-[22px] text-brand-blue">home_repair_service</span>
+                    <span>Home Improvement</span>
+                  </button>
+                  <button type="button" class="chip p-4 rounded-xl text-left bg-white text-brand-navy border border-brand-border hover:border-brand-blue font-bold text-sm transition-all flex flex-col gap-2">
+                    <span class="material-symbols-outlined text-[22px] text-brand-blue">emergency</span>
+                    <span>Emergency</span>
+                  </button>
+                  <button type="button" class="chip p-4 rounded-xl text-left bg-white text-brand-navy border border-brand-border hover:border-brand-blue font-bold text-sm transition-all flex flex-col gap-2">
+                    <span class="material-symbols-outlined text-[22px] text-brand-blue">account_balance_wallet</span>
+                    <span>Debt Consolidation</span>
+                  </button>
+                  <button type="button" class="chip p-4 rounded-xl text-left bg-white text-brand-navy border border-brand-border hover:border-brand-blue font-bold text-sm transition-all flex flex-col gap-2">
+                    <span class="material-symbols-outlined text-[22px] text-brand-blue">person</span>
+                    <span>Personal</span>
+                  </button>
+                  <button type="button" class="chip p-4 rounded-xl text-left bg-white text-brand-navy border border-brand-border hover:border-brand-blue font-bold text-sm transition-all flex flex-col gap-2">
+                    <span class="material-symbols-outlined text-[22px] text-brand-blue">more_horiz</span>
+                    <span>Other Purpose</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer of card -->
+            <div class="mt-8 pt-6 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div class="flex items-center gap-2 text-xs text-brand-muted">
+                <span class="material-symbols-outlined text-brand-green text-[18px]">lock</span>
+                <span>Checking eligibility does not guarantee approval. No credit score impact.</span>
+              </div>
+              <button type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blueHover text-white px-8 py-3 rounded-xl font-bold text-sm transition-all shadow-md">
+                <span>Continue</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Application Checklist Card (5 cols) -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-8 border border-brand-border shadow-sm flex flex-col justify-between" id="checklist-section">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-xl font-extrabold text-brand-navy">Application Checklist</h3>
+                <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-blueLight text-brand-blue" id="checklist-counter">3 of 6 completed</span>
+              </div>
+              <p class="text-xs text-brand-muted mb-4">Check off records you have ready to unlock same-day underwriting review.</p>
+
+              <!-- Progress bar -->
+              <div class="w-full bg-slate-100 h-2 rounded-full mb-6 overflow-hidden">
+                <div class="bg-brand-green h-full rounded-full transition-all duration-300" id="checklist-bar" style="width: 50%;"></div>
+              </div>
+
+              <!-- Interactive checkboxes -->
+              <div class="space-y-3 text-sm" id="checklist-items">
+                <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-bg cursor-pointer select-none border border-transparent hover:border-brand-border transition-colors">
+                  <input type="checkbox" checked class="chk-item w-4 h-4 rounded text-brand-blue accent-brand-blue cursor-pointer"/>
+                  <span class="font-medium text-brand-navy">Government-issued photo ID</span>
+                </label>
+                <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-bg cursor-pointer select-none border border-transparent hover:border-brand-border transition-colors">
+                  <input type="checkbox" checked class="chk-item w-4 h-4 rounded text-brand-blue accent-brand-blue cursor-pointer"/>
+                  <span class="font-medium text-brand-navy">Proof of income (pay stubs / W2)</span>
+                </label>
+                <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-bg cursor-pointer select-none border border-transparent hover:border-brand-border transition-colors">
+                  <input type="checkbox" checked class="chk-item w-4 h-4 rounded text-brand-blue accent-brand-blue cursor-pointer"/>
+                  <span class="font-medium text-brand-navy">Bank account information</span>
+                </label>
+                <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-bg cursor-pointer select-none border border-transparent hover:border-brand-border transition-colors">
+                  <input type="checkbox" class="chk-item w-4 h-4 rounded text-brand-blue accent-brand-blue cursor-pointer"/>
+                  <span class="font-medium text-brand-navy">Proof of address (utility bill / lease)</span>
+                </label>
+                <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-bg cursor-pointer select-none border border-transparent hover:border-brand-border transition-colors">
+                  <input type="checkbox" class="chk-item w-4 h-4 rounded text-brand-blue accent-brand-blue cursor-pointer"/>
+                  <span class="font-medium text-brand-navy">Social Security information</span>
+                </label>
+                <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-brand-bg cursor-pointer select-none border border-transparent hover:border-brand-border transition-colors">
+                  <input type="checkbox" class="chk-item w-4 h-4 rounded text-brand-blue accent-brand-blue cursor-pointer"/>
+                  <span class="font-medium text-brand-navy">Employment verification</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-4">
+              <a href="#eligibility" class="w-full inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-brand-blue text-white py-3.5 rounded-xl text-sm font-bold transition-colors">
+                <span>Continue Application</span>
+                <span class="material-symbols-outlined text-[18px]">verified</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: REFINANCING SAVINGS CALCULATOR ("See What You Could Save") -->
+    <section class="py-20 bg-brand-bg" id="savings-calculator">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl p-8 sm:p-12 border border-brand-border shadow-md">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <!-- Left Inputs (6 cols) -->
+            <div class="lg:col-span-6 space-y-6">
+              <div>
+                <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Refinance & Save</span>
+                <h2 class="text-3xl font-extrabold text-brand-navy mt-1">See What You Could Save</h2>
+                <p class="text-sm text-brand-muted mt-2">
+                  Replace high-interest credit card debt or expensive vehicle loans with a fixed Zorian refinance term.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1">Current Balance</label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-brand-muted font-bold text-sm">$</span>
+                    <input type="number" id="save-balance" value="18500" class="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-50 border border-brand-border text-sm font-bold text-brand-navy focus:outline-none focus:border-brand-blue"/>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1">Current Interest Rate (%)</label>
+                  <div class="relative">
+                    <input type="number" step="0.1" id="save-rate" value="18.5" class="w-full pl-3 pr-8 py-2.5 rounded-xl bg-slate-50 border border-brand-border text-sm font-bold text-brand-navy focus:outline-none focus:border-brand-blue"/>
+                    <span class="absolute right-3.5 top-3 text-brand-muted font-bold text-sm">%</span>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1">Current Monthly Payment</label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-brand-muted font-bold text-sm">$</span>
+                    <input type="number" id="save-payment" value="450" class="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-50 border border-brand-border text-sm font-bold text-brand-navy focus:outline-none focus:border-brand-blue"/>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1">Remaining Term</label>
+                  <select id="save-term" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-brand-border text-sm font-bold text-brand-navy focus:outline-none focus:border-brand-blue cursor-pointer">
+                    <option value="24">24 Months</option>
+                    <option value="36" selected>36 Months</option>
+                    <option value="48">48 Months</option>
+                    <option value="60">60 Months</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="button" id="calc-savings-btn" class="inline-flex items-center gap-2 bg-brand-bg hover:bg-slate-200 text-brand-navy border border-brand-border px-6 py-3 rounded-xl font-bold text-sm transition-all">
+                <span class="material-symbols-outlined text-[18px] text-brand-blue">sync</span>
+                <span>Calculate Savings</span>
+              </button>
+            </div>
+
+            <!-- Right Output (6 cols) -->
+            <div class="lg:col-span-6">
+              <div class="bg-brand-navy text-white rounded-3xl p-8 sm:p-10 shadow-xl flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -right-16 -bottom-16 w-56 h-56 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="space-y-6 relative z-10">
+                  <div class="flex items-center justify-between">
+                    <span class="px-3 py-1 rounded-full bg-brand-green text-white text-xs font-bold">Estimated Benefit</span>
+                    <span class="text-xs text-slate-300">Zorian Refi APR: 7.99%</span>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white/10 rounded-2xl p-5 backdrop-blur-sm">
+                      <span class="text-xs text-slate-300 block mb-1">Potential Monthly Savings</span>
+                      <div class="text-3xl font-extrabold text-brand-accent leading-none">$<span id="out-monthly-save">112.50</span></div>
+                      <span class="text-[11px] text-slate-300 mt-1 block">extra in your pocket monthly</span>
+                    </div>
+
+                    <div class="bg-white/10 rounded-2xl p-5 backdrop-blur-sm">
+                      <span class="text-xs text-slate-300 block mb-1">Estimated Total Savings</span>
+                      <div class="text-3xl font-extrabold text-brand-green leading-none">$<span id="out-total-save">4,050</span></div>
+                      <span class="text-[11px] text-slate-300 mt-1 block">over entire loan duration</span>
+                    </div>
+                  </div>
+
+                  <div class="p-4 rounded-xl bg-white/5 text-xs text-slate-300 leading-relaxed border border-white/10">
+                    *Disclaimer: Results are estimates based on credit tier assumptions. Final terms subject to credit approval and verification.
+                  </div>
+
+                  <a href="#eligibility" class="w-full inline-flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blueHover text-white py-4 rounded-xl font-bold text-sm shadow-md transition-all">
+                    <span>Lock In Your Refinancing Rate</span>
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: COMPANY STATS & CEO LEADERSHIP -->
+    <section class="py-24 bg-white border-b border-brand-border" id="about">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Story & Verified Stats (7 cols) -->
+          <div class="lg:col-span-7 flex flex-col gap-8">
+            <div>
+              <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Our Foundation</span>
+              <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-1">Built Around a Simpler Borrowing Experience</h2>
+              <p class="text-base text-brand-muted mt-3 leading-relaxed">
+                Founded in 2018, Zorian Loan Finance has emerged as a leading provider of fast, reliable, and transparent financial solutions across the United States. We understand that unexpected expenses create stress, so our technology streamlines decisions without bureaucratic delays.
+              </p>
+            </div>
+
+            <!-- Authentic Verified Numbers from Source -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div class="bg-brand-bg p-5 rounded-2xl border border-brand-border">
+                <div class="text-2xl sm:text-3xl font-extrabold text-brand-navy">250K+</div>
+                <div class="text-xs font-semibold text-brand-muted mt-1">Happy Customers</div>
+              </div>
+              <div class="bg-brand-bg p-5 rounded-2xl border border-brand-border">
+                <div class="text-2xl sm:text-3xl font-extrabold text-brand-blue">$500M+</div>
+                <div class="text-xs font-semibold text-brand-muted mt-1">Loans Funded</div>
+              </div>
+              <div class="bg-brand-bg p-5 rounded-2xl border border-brand-border">
+                <div class="text-2xl sm:text-3xl font-extrabold text-brand-navy">4.8 / 5</div>
+                <div class="text-xs font-semibold text-brand-muted mt-1">Customer Rating</div>
+              </div>
+              <div class="bg-brand-bg p-5 rounded-2xl border border-brand-border">
+                <div class="text-2xl sm:text-3xl font-extrabold text-brand-navy">2018</div>
+                <div class="text-xs font-semibold text-brand-muted mt-1">Founded in CA</div>
+              </div>
+            </div>
+
+            <!-- Mission & Values -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-brand-bg p-5 rounded-2xl border border-brand-border">
+                <div class="flex items-center gap-2 text-brand-navy font-bold text-sm mb-1">
+                  <span class="material-symbols-outlined text-brand-blue text-[20px]">flag</span>
+                  <span>Our Mission</span>
+                </div>
+                <p class="text-xs text-brand-muted leading-relaxed">To provide fast, fair, and transparent financial solutions that empower our customers to achieve their goals.</p>
+              </div>
+              <div class="bg-brand-bg p-5 rounded-2xl border border-brand-border">
+                <div class="flex items-center gap-2 text-brand-navy font-bold text-sm mb-1">
+                  <span class="material-symbols-outlined text-brand-blue text-[20px]">verified_user</span>
+                  <span>Our Values</span>
+                </div>
+                <p class="text-xs text-brand-muted leading-relaxed">Integrity, transparency, customer-first approach, and responsible lending practices guide everything we do.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CEO Message Card (5 cols) -->
+          <div class="lg:col-span-5">
+            <div class="bg-brand-navy text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-brand-border relative">
+              <span class="material-symbols-outlined text-white/10 text-[80px] absolute right-6 top-6 pointer-events-none">format_quote</span>
+              
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-brand-blue text-white flex items-center justify-center font-extrabold text-xl shadow-md">
+                  MJ
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-white">Michael Johnson</h3>
+                  <p class="text-xs text-brand-accent font-semibold">Chief Executive Officer</p>
+                  <p class="text-[11px] text-slate-400">Zorian Loan Finance</p>
+                </div>
+              </div>
+
+              <blockquote class="text-base text-slate-200 leading-relaxed italic relative z-10 mb-6">
+                "Our vision is to democratize access to financial services and empower every American with the tools they need to achieve financial stability and success."
+              </blockquote>
+
+              <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                <span>Licensed Lender in all 50 states</span>
+                <span class="text-brand-accent font-bold">NMLS Partner</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: CUSTOMER TESTIMONIALS (3 authentic cards) -->
+    <section class="py-20 bg-brand-bg border-b border-brand-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Real Stories</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-1">What Our Customers Say</h2>
+          <p class="text-base text-brand-muted mt-2">Join thousands of satisfied customers who achieved financial peace of mind.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Testimonial 1 -->
+          <div class="bg-white p-7 rounded-2xl border border-brand-border shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 gap-1 mb-4">
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-base font-semibold text-brand-navy leading-relaxed mb-6">
+                "Got approved in minutes! Fast and reliable service."
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+              <div class="w-10 h-10 rounded-full bg-brand-blueLight text-brand-blue font-extrabold flex items-center justify-center text-sm">
+                M
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-navy">Marcus Williams</h4>
+                <p class="text-xs text-brand-muted">Austin, TX</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="bg-white p-7 rounded-2xl border border-brand-border shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 gap-1 mb-4">
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-base font-semibold text-brand-navy leading-relaxed mb-6">
+                "Zorian Loan Finance saved me in an emergency. Highly recommended!"
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+              <div class="w-10 h-10 rounded-full bg-brand-blueLight text-brand-blue font-extrabold flex items-center justify-center text-sm">
+                M
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-navy">Mike Rodriguez</h4>
+                <p class="text-xs text-brand-muted">Phoenix, AZ</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="bg-white p-7 rounded-2xl border border-brand-border shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 gap-1 mb-4">
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              </div>
+              <p class="text-base font-semibold text-brand-navy leading-relaxed mb-6">
+                "Best loan experience ever. Simple and straightforward."
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+              <div class="w-10 h-10 rounded-full bg-brand-blueLight text-brand-blue font-extrabold flex items-center justify-center text-sm">
+                J
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-navy">Jessica Park</h4>
+                <p class="text-xs text-brand-muted">Seattle, WA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: ACCORDION FAQ -->
+    <section class="py-24 bg-white border-b border-brand-border" id="faq">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <span class="text-xs font-extrabold tracking-widest text-brand-blue uppercase">Got Questions?</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-1">Frequently Asked Questions</h2>
+          <p class="text-base text-brand-muted mt-2">Get answers to common inquiries about our borrowing procedures and terms.</p>
+        </div>
+
+        <div class="space-y-4" id="faq-accordion">
+          <!-- Q1 -->
+          <div class="border border-brand-border rounded-2xl overflow-hidden bg-white">
+            <button type="button" class="faq-btn w-full p-6 text-left flex items-center justify-between font-bold text-brand-navy hover:text-brand-blue transition-colors">
+              <span>How quickly can I get approved?</span>
+              <span class="material-symbols-outlined text-brand-muted transition-transform">expand_more</span>
+            </button>
+            <div class="faq-content px-6 pb-6 text-sm text-brand-muted leading-relaxed">
+              Most online applications receive an algorithmic decision in under 3 minutes. Once approved and verification is completed, funds can be deposited directly into your checking account as soon as the next business day.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="border border-brand-border rounded-2xl overflow-hidden bg-white">
+            <button type="button" class="faq-btn w-full p-6 text-left flex items-center justify-between font-bold text-brand-navy hover:text-brand-blue transition-colors">
+              <span>What are the eligibility requirements?</span>
+              <span class="material-symbols-outlined text-brand-muted transition-transform">expand_more</span>
+            </button>
+            <div class="faq-content px-6 pb-6 text-sm text-brand-muted leading-relaxed hidden">
+              To qualify, you must be at least 18 years old, a US citizen or permanent resident, have a steady verified source of income, and hold an active personal checking account for direct electronic transfer.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="border border-brand-border rounded-2xl overflow-hidden bg-white">
+            <button type="button" class="faq-btn w-full p-6 text-left flex items-center justify-between font-bold text-brand-navy hover:text-brand-blue transition-colors">
+              <span>Can I apply with less-than-perfect credit?</span>
+              <span class="material-symbols-outlined text-brand-muted transition-transform">expand_more</span>
+            </button>
+            <div class="faq-content px-6 pb-6 text-sm text-brand-muted leading-relaxed hidden">
+              Yes. We take into consideration factors beyond your standalone credit score, including debt-to-income ratio, employment tenure, and banking history, to evaluate your whole financial picture.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="border border-brand-border rounded-2xl overflow-hidden bg-white">
+            <button type="button" class="faq-btn w-full p-6 text-left flex items-center justify-between font-bold text-brand-navy hover:text-brand-blue transition-colors">
+              <span>Are there any hidden fees or prepayment penalties?</span>
+              <span class="material-symbols-outlined text-brand-muted transition-transform">expand_more</span>
+            </button>
+            <div class="faq-content px-6 pb-6 text-sm text-brand-muted leading-relaxed hidden">
+              No. We pride ourselves on transparent lending. All loan terms, interest rates, and APR schedules are disclosed upfront before you sign. There are zero penalties for paying off your loan balance ahead of schedule.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="border border-brand-border rounded-2xl overflow-hidden bg-white">
+            <button type="button" class="faq-btn w-full p-6 text-left flex items-center justify-between font-bold text-brand-navy hover:text-brand-blue transition-colors">
+              <span>What loan amounts and terms are available?</span>
+              <span class="material-symbols-outlined text-brand-muted transition-transform">expand_more</span>
+            </button>
+            <div class="faq-content px-6 pb-6 text-sm text-brand-muted leading-relaxed hidden">
+              Depending on loan purpose and qualification, loan amounts range from $1,000 up to $100,000 with flexible repayment periods from 24 to 60 months.
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="border border-brand-border rounded-2xl overflow-hidden bg-white">
+            <button type="button" class="faq-btn w-full p-6 text-left flex items-center justify-between font-bold text-brand-navy hover:text-brand-blue transition-colors">
+              <span>Is my personal and financial information secure?</span>
+              <span class="material-symbols-outlined text-brand-muted transition-transform">expand_more</span>
+            </button>
+            <div class="faq-content px-6 pb-6 text-sm text-brand-muted leading-relaxed hidden">
+              Your security is our highest priority. All data transmitted through our portal is guarded with 256-bit SSL encryption, and we never sell your personal information to unapproved third-party brokers.
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-10">
+          <p class="text-sm text-brand-muted">
+            Still have questions? Reach our lending team directly at 
+            <a href="mailto:support@zorianloanfinace.com" class="text-brand-blue font-bold hover:underline">support@zorianloanfinace.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: HIGH-CONVERSION BOTTOM CALLOUT -->
+    <section class="py-20 bg-brand-navy text-white relative overflow-hidden">
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <span class="inline-block px-3.5 py-1.5 rounded-full bg-white/10 text-brand-accent text-xs font-extrabold uppercase tracking-wider mb-6">
+          Fast Approval Process
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto">
+          Ready to Explore Your Options?
+        </h2>
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mt-4 leading-relaxed">
+          Start with a simple eligibility check and explore financing options that may fit your needs. Get funds as soon as the next business day.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <a href="#eligibility" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blueHover text-white px-9 py-4 rounded-xl font-bold text-base shadow-xl transition-all">
+            <span>Check My Eligibility</span>
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+          </a>
+          <a href="#calculator" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-base transition-all">
+            <span class="material-symbols-outlined text-[20px]">calculate</span>
+            <span>Calculate Payment</span>
+          </a>
+        </div>
+
+        <p class="text-xs text-slate-400 mt-6">Checking your rates does not impact your credit score.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- REUSABLE FOOTER -->
+  <footer class="bg-brand-dark text-slate-400 pt-16 pb-12 border-t border-white/10 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+        
+        <!-- Brand Summary -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-brand-navy border border-brand-blue/30 flex items-center justify-center text-white">
+              <svg class="w-5 h-5" viewBox="0 0 40 40" fill="none">
+                <path d="M10 12H30L14 28H30" stroke="#2563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 12L30 20M30 12H22V20" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-bold text-lg text-white tracking-tight">ZORIAN</span>
+              <span class="text-[9px] font-bold tracking-widest text-brand-blue uppercase">Loan Finance</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+            Fast, secure, and reliable loans when you need them most. Transforming personal and consumer lending across the United States.
+          </p>
+          <div class="text-xs text-slate-400 space-y-1 pt-2">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-brand-blue">location_on</span>
+              <span>8326 Jamieson Ave, Northridge, CA 91325</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-brand-blue">mail</span>
+              <a href="mailto:support@zorianloanfinace.com" class="hover:text-white transition-colors">support@zorianloanfinace.com</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 1: Loan Services -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Loan Services</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#auto-loans" class="hover:text-white transition-colors">Auto Loans</a></li>
+            <li><a href="#home-loans" class="hover:text-white transition-colors">Home Improvement</a></li>
+            <li><a href="#emergency-loans" class="hover:text-white transition-colors">Emergency Loans</a></li>
+            <li><a href="#debt-loans" class="hover:text-white transition-colors">Debt Consolidation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2: Company -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="mailto:support@zorianloanfinace.com" class="hover:text-white transition-colors">Contact Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Legal -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Legal & Compliance</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Responsible Lending</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">State Licensing</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <p>© 2018 - 2025 Zorian Loan Finance. All rights reserved. | Licensed Lender in all 50 states.</p>
+        <div class="flex items-center gap-4">
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300">Equal Housing Lender</span>
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300">NMLS ID #184920</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT FOR CALCULATOR AND INTERACTIVITY -->
+  <script>
+    // Hero loan payment calculation
+    const heroAmount = document.getElementById('hero-amount-range');
+    const heroAmountVal = document.getElementById('hero-amount-val');
+    const heroPurpose = document.getElementById('hero-purpose-select');
+    const heroTerm = document.getElementById('hero-term-select');
+    const heroDisplay = document.getElementById('hero-monthly-display');
+
+    function calculateHeroPayment() {
+      const P = parseFloat(heroAmount.value);
+      const r = (parseFloat(heroPurpose.value) / 100) / 12;
+      const n = parseInt(heroTerm.value);
+      
+      heroAmountVal.textContent = '$' + P.toLocaleString();
+      const monthly = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      heroDisplay.textContent = monthly.toFixed(2);
+    }
+
+    heroAmount.addEventListener('input', calculateHeroPayment);
+    heroPurpose.addEventListener('change', calculateHeroPayment);
+    heroTerm.addEventListener('change', calculateHeroPayment);
+
+    // Purpose chip toggle in Step 1
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => {
+          c.classList.remove('bg-brand-blue', 'text-white', 'active');
+          c.classList.add('bg-white', 'text-brand-navy', 'border', 'border-brand-border');
+          const icon = c.querySelector('.material-symbols-outlined');
+          if (icon) icon.classList.add('text-brand-blue');
+        });
+        chip.classList.add('bg-brand-blue', 'text-white', 'active');
+        chip.classList.remove('bg-white', 'text-brand-navy', 'border', 'border-brand-border');
+        const activeIcon = chip.querySelector('.material-symbols-outlined');
+        if (activeIcon) activeIcon.classList.remove('text-brand-blue');
+      });
+    });
+
+    // Application checklist progress
+    const chkItems = document.querySelectorAll('.chk-item');
+    const counter = document.getElementById('checklist-counter');
+    const bar = document.getElementById('checklist-bar');
+
+    function updateChecklist() {
+      let checked = 0;
+      chkItems.forEach(i => { if (i.checked) checked++; });
+      counter.textContent = `${checked} of ${chkItems.length} completed`;
+      bar.style.width = `${(checked / chkItems.length) * 100}%`;
+    }
+    chkItems.forEach(item => item.addEventListener('change', updateChecklist));
+
+    // Refinance savings calculator
+    const saveBal = document.getElementById('save-balance');
+    const saveRate = document.getElementById('save-rate');
+    const savePay = document.getElementById('save-payment');
+    const saveTerm = document.getElementById('save-term');
+    const outMonthly = document.getElementById('out-monthly-save');
+    const outTotal = document.getElementById('out-total-save');
+    const calcSaveBtn = document.getElementById('calc-savings-btn');
+
+    function calculateSavings() {
+      const balance = parseFloat(saveBal.value) || 18500;
+      const currentPay = parseFloat(savePay.value) || 450;
+      const termMonths = parseInt(saveTerm.value) || 36;
+      
+      const newRateMonthly = (0.0799 / 12);
+      const newPayment = (balance * newRateMonthly * Math.pow(1 + newRateMonthly, termMonths)) / (Math.pow(1 + newRateMonthly, termMonths) - 1);
+      
+      const monthlySaved = Math.max(0, currentPay - newPayment);
+      const totalSaved = monthlySaved * termMonths;
+
+      outMonthly.textContent = monthlySaved.toFixed(2);
+      outTotal.textContent = Math.round(totalSaved).toLocaleString();
+    }
+    if (calcSaveBtn) calcSaveBtn.addEventListener('click', calculateSavings);
+
+    // FAQ Accordion toggle
+    const faqBtns = document.querySelectorAll('.faq-btn');
+    faqBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        const icon = btn.querySelector('.material-symbols-outlined');
+        const isHidden = content.classList.contains('hidden');
+        
+        // close all
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-btn .material-symbols-outlined').forEach(i => i.style.transform = 'rotate(0deg)');
+
+        if (isHidden) {
+          content.classList.remove('hidden');
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    // Comparison tab filtering
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const rows = document.querySelectorAll('#comparison-rows tr');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => {
+          b.classList.remove('bg-brand-navy', 'text-white');
+          b.classList.add('bg-slate-100', 'text-brand-muted');
+        });
+        btn.classList.add('bg-brand-navy', 'text-white');
+        btn.classList.remove('bg-slate-100', 'text-brand-muted');
+
+        const cat = btn.getAttribute('data-cat');
+        rows.forEach(r => {
+          if (cat === 'all' || r.getAttribute('data-row') === cat) {
+            r.style.display = '';
+          } else {
+            r.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
