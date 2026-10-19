@@ -118,6 +118,53 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.field input,
+.field select {
+  margin-bottom: 6px;
+}
+
+.form-step input.input-error,
+.form-step select.input-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-text {
+  display: block;
+  color: #ef4444;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.review-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+}
+
+.review-row:last-child {
+  border-bottom: none;
+}
+
+.review-row span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.review-row strong {
+  color: #111827;
+  font-size: 14px;
+  text-align: right;
+  word-break: break-word;
+}
+
 .upload-area {
   border: 2px dashed #e5e7eb;
   border-radius: 8px;
