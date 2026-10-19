@@ -1,10 +1,39 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
-function HomeMain({ setPage }) {
+// Loan purpose mapping (card select rate <-> purpose label / stepper chip)
+const PURPOSE_RATES = {
+  auto: 5.99,
+  home: 6.49,
+  emergency: 8.99,
+  debt: 7.25,
+  personal: 9.50,
+  other: 9.50
+};
+
+const RATE_PURPOSE_LABELS = {
+  5.99: 'Auto Loan',
+  6.49: 'Home Improvement',
+  8.99: 'Emergency Loan',
+  7.25: 'Debt Consolidation',
+  9.50: 'Personal Loan'
+};
+
+function HomeMain({ setPage, loanDraftRef }) {
   // 1. Hero Calculator State
   const [heroAmount, setHeroAmount] = useState(25000);
   const [heroRate, setHeroRate] = useState(5.99);
   const [heroTerm, setHeroTerm] = useState(60);
+
+  // Calculator ki current values Apply form me prefill karne ke liye sync karo
+  useEffect(() => {
+    if (!loanDraftRef) return;
+    loanDraftRef.current = {
+      purpose: RATE_PURPOSE_LABELS[heroRate] || 'Auto Loan',
+      amount: heroAmount,
+      term: heroTerm,
+      rate: heroRate
+    };
+  }, [heroAmount, heroRate, heroTerm, loanDraftRef]);
 
   // Hero monthly payment calculation
   const heroMonthly = useMemo(() => {
@@ -237,7 +266,9 @@ function HomeMain({ setPage }) {
                       max="75000" 
                       step="500" 
                       value={heroAmount} 
-                      onChange={(e) => setHeroAmount(Number(e.target.value))}
+                      onChange={(e) => {
+                        setHeroAmount(Number(e.target.value));
+                      }}
                       className="w-full h-2.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-brand-blue"
                     />
                     <div className="flex justify-between text-xs text-brand-muted mt-1">
@@ -252,7 +283,9 @@ function HomeMain({ setPage }) {
                       <label className="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1.5">Select Loan Purpose</label>
                       <select 
                         value={heroRate}
-                        onChange={(e) => setHeroRate(Number(e.target.value))}
+                        onChange={(e) => {
+                          setHeroRate(Number(e.target.value));
+                        }}
                         className="w-full bg-slate-50 border border-brand-border rounded-xl px-3 py-2.5 text-sm font-semibold text-brand-navy focus:outline-none focus:border-brand-blue cursor-pointer"
                       >
                         <option value="5.99">Auto Loan (5.99%)</option>
@@ -266,7 +299,9 @@ function HomeMain({ setPage }) {
                       <label className="block text-xs font-bold uppercase tracking-wider text-brand-muted mb-1.5">Loan Term</label>
                       <select 
                         value={heroTerm}
-                        onChange={(e) => setHeroTerm(Number(e.target.value))}
+                        onChange={(e) => {
+                          setHeroTerm(Number(e.target.value));
+                        }}
                         className="w-full bg-slate-50 border border-brand-border rounded-xl px-3 py-2.5 text-sm font-semibold text-brand-navy focus:outline-none focus:border-brand-blue cursor-pointer"
                       >
                         <option value="36">36 Months</option>
@@ -730,7 +765,11 @@ function HomeMain({ setPage }) {
                       <button 
                         key={chip.id}
                         type="button" 
-                        onClick={() => setSelectedPurpose(chip.id)}
+                        onClick={() => {
+                          const rate = PURPOSE_RATES[chip.id] ?? heroRate;
+                          setSelectedPurpose(chip.id);
+                          setHeroRate(rate);
+                        }}
                         className={`p-4 rounded-xl text-left font-bold text-sm shadow-sm transition-all flex flex-col gap-2 border-0 cursor-pointer ${
                           selectedPurpose === chip.id 
                             ? 'bg-brand-blue text-white' 
@@ -1153,8 +1192,8 @@ function HomeMain({ setPage }) {
           <div className="text-center mt-10">
             <p className="text-sm text-brand-muted">
               Still have questions? Reach our lending team directly at{' '}
-              <a href="mailto:support@zorianloanfinace.com" className="text-brand-blue font-bold hover:underline">
-                support@zorianloanfinace.com
+              <a href="mailto:quickadvancecash@gmail.com" className="text-brand-blue font-bold hover:underline">
+                quickadvancecash@gmail.com
               </a>
             </p>
           </div>

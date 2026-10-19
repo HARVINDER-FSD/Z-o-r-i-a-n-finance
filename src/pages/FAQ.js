@@ -52,7 +52,7 @@ function FAQ() {
           <h2>Still Have Questions?</h2>
           <p>Our support team is available 24/7.</p>
           <div style={{display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '24px'}}>
-            <a href="mailto:support@zorianloanfinance.com" className="btn-secondary">Email Us</a>
+            <a href="mailto:quickadvancecash@gmail.com" className="btn-secondary">Email Us</a>
             <a href="tel:+1234567890" className="btn-secondary">Call Us</a>
           </div>
         </div>

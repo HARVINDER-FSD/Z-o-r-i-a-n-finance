@@ -42,7 +42,7 @@ function Footer({ setPage }) {
               </div>
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[16px]" style={{color:'#10B981'}}>mail</span>
-                <a href="mailto:support@quickadvancecash.com" className="hover:text-white transition-colors">support@quickadvancecash.com</a>
+                <a href="mailto:quickadvancecash@gmail.com" className="hover:text-white transition-colors">quickadvancecash@gmail.com</a>
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@ function Footer({ setPage }) {
                 </button>
               </li>
               <li>
-                <a href="mailto:support@zorianloanfinace.com" className="hover:text-white transition-colors text-slate-400">
+                <a href="mailto:quickadvancecash@gmail.com" className="hover:text-white transition-colors text-slate-400">
                   Contact Support
                 </a>
               </li>

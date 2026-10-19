@@ -64,62 +64,6 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.field input,
-.field textarea {
-  width: 100%;
-}
-
-.contact-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.form-card input.input-error,
-.form-card textarea.input-error {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-}
-
-.error-text {
-  display: block;
-  color: #ef4444;
-  font-size: 13px;
-  margin-top: 6px;
-}
-
-.contact-success p {
-  color: #6b7280;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.review-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(102, 126, 234, 0.15);
-}
-
-.review-row:last-child {
-  border-bottom: none;
-}
-
-.review-row span {
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.review-row strong {
-  color: #111827;
-  font-size: 14px;
-  text-align: right;
-  word-break: break-word;
-  max-width: 65%;
-}
-
 @media (max-width: 1024px) {
   .contact-grid {
     grid-template-columns: 1fr;
@@ -129,10 +73,6 @@
 @media (max-width: 768px) {
   .contact-hero h1 {
     font-size: 32px;
-  }
-
-  .contact-row {
-    grid-template-columns: 1fr;
   }
 
   .form-card {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Home from './pages/HomeMain';
@@ -15,11 +15,14 @@ import './App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  // Home page ke card (hero calculator / pre-qualification) se liya gaya loan draft,
+  // jo Contact form me prefill hota hai.
+  const loanDraftRef = useRef(null);
 
   const renderPage = () => {
     switch(currentPage) {
       case 'home':
-        return <Home setPage={setCurrentPage} />;
+        return <Home setPage={setCurrentPage} loanDraftRef={loanDraftRef} />;
       case 'auto-loans':
         return <AutoLoans />;
       case 'personal-loans':
@@ -31,7 +34,7 @@ function App() {
       case 'emergency-loans':
         return <EmergencyLoans />;
       case 'apply':
-        return <Apply />;
+        return <Apply loanDraft={loanDraftRef.current} />;
       case 'about':
         return <About />;
       case 'faq':
@@ -39,7 +42,7 @@ function App() {
       case 'contact':
         return <Contact />;
       default:
-        return <Home setPage={setCurrentPage} />;
+        return <Home setPage={setCurrentPage} loanDraftRef={loanDraftRef} />;
     }
   };
 
