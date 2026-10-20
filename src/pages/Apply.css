@@ -4,21 +4,25 @@
 
 .apply-hero {
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, white 100%);
-  padding: 60px 0 40px;
+  padding: 60px 20px 40px;
   text-align: center;
   margin-top: 20px;
 }
 
 .apply-hero h1 {
-  font-size: 44px;
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
   font-weight: bold;
   color: #111827;
   margin-bottom: 12px;
+  line-height: 1.2;
 }
 
 .apply-hero p {
-  font-size: 18px;
+  font-size: clamp(1rem, 2vw, 1.125rem);
   color: #6b7280;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 .apply-section {
@@ -184,11 +188,20 @@
 }
 
 @media (max-width: 768px) {
-  .apply-hero h1 {
-    font-size: 32px;
+  .apply-section {
+    padding: 40px 0;
+  }
+
+  .apply-container {
+    padding: 0 16px;
   }
 
   .form-card {
-    padding: 24px;
+    padding: 20px 16px;
+  }
+
+  .estimate-chip {
+    font-size: 13px;
+    padding: 5px 10px;
   }
 }

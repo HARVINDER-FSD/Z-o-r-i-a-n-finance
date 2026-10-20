@@ -13,7 +13,7 @@ function About() {
 
       <section className="about-section">
         <div className="container">
-          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center'}}>
+          <div className="about-grid-2">
             <div>
               <h2 style={{fontSize: '32px', marginBottom: '16px', color: '#111827'}}>Our Story</h2>
               <p style={{color: '#6b7280', marginBottom: '16px', lineHeight: '1.6'}}>
@@ -35,7 +35,7 @@ function About() {
       <section className="about-section" style={{background: '#f9fafb'}}>
         <div className="container">
           <h2 style={{textAlign: 'center', fontSize: '32px', marginBottom: '48px', color: '#111827'}}>Our Values</h2>
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px'}}>
+          <div className="about-values-grid">
             {[
               { emoji: '❤️', title: 'Customer First', desc: 'We put customers at the center' },
               { emoji: '⭐', title: 'Integrity', desc: 'Transparent in all dealings' },

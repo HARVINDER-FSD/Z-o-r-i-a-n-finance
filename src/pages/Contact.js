@@ -45,7 +45,7 @@ function Contact() {
           <div className="form-card card">
             <h2 style={{fontSize: '28px', marginBottom: '24px', color: '#111827'}}>Send us a Message</h2>
             <form>
-              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px'}}>
+              <div className="contact-form-grid">
                 <input type="text" placeholder="Your Name" />
                 <input type="email" placeholder="Your Email" />
               </div>
