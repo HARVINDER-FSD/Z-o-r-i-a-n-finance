@@ -21,28 +21,27 @@ function Footer({ setPage }) {
           {/* Brand Summary */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl border border-emerald-500/30 flex items-center justify-center text-white" style={{background:'linear-gradient(135deg,#0B1F3A 60%,#10B981 100%)'}}>
-                <svg className="w-5 h-5" viewBox="0 0 40 40" fill="none">
-                  <polygon points="22,4 14,22 20,22 18,36 26,18 20,18" fill="#F59E0B"/>
-                  <text x="26" y="32" fontSize="13" fontWeight="bold" fill="#10B981" fontFamily="sans-serif">$</text>
-                </svg>
-              </div>
+              <img
+                src="/logo.PNG"
+                alt="Zorian Logo"
+                className="h-9 w-auto"
+              />
               <div className="flex flex-col">
-                <span className="font-bold text-lg text-white tracking-tight">Quick Advance</span>
-                <span className="text-[9px] font-bold tracking-widest uppercase" style={{color:'#10B981'}}>Cash</span>
+                <span className="font-bold text-lg text-white tracking-tight">Zorian</span>
+                <span className="text-[9px] font-bold tracking-widest uppercase" style={{color:'#667eea'}}>Finance</span>
               </div>
             </div>
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-              Fast, secure, and reliable cash advances when you need them most. Empowering consumers with quick access to funds across the United States.
+              Fast, secure, and reliable loans when you need them most. Empowering consumers with quick access to funds across the United States.
             </p>
             <div className="text-xs text-slate-400 space-y-1 pt-2">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px]" style={{color:'#10B981'}}>location_on</span>
+                <span className="material-symbols-outlined text-[16px]" style={{color:'#667eea'}}>location_on</span>
                 <span>8326 Jamieson Ave, Northridge, CA 91325</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px]" style={{color:'#10B981'}}>mail</span>
-                <a href="mailto:quickadvancecash@gmail.com" className="hover:text-white transition-colors">quickadvancecash@gmail.com</a>
+                <span className="material-symbols-outlined text-[16px]" style={{color:'#667eea'}}>mail</span>
+                <a href="mailto:support@zorianloanfinance.com" className="hover:text-white transition-colors">support@zorianloanfinance.com</a>
               </div>
             </div>
           </div>

@@ -33,18 +33,14 @@ function Navigation({ setPage, currentPage = 'home' }) {
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && navigateTo('home')}
           >
-            <div
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg,#0B1F3A 60%,#10B981 100%)' }}
-            >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 40 40" fill="none">
-                <polygon points="22,4 14,22 20,22 18,36 26,18 20,18" fill="#F59E0B" />
-                <text x="26" y="32" fontSize="13" fontWeight="bold" fill="#10B981" fontFamily="sans-serif">$</text>
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-base sm:text-xl tracking-tight text-brand-navy leading-none">Quick Advance</span>
-              <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase mt-0.5" style={{ color: '#10B981' }}>Cash</span>
+            <img
+              src="/logo.PNG"
+              alt="Zorian Logo"
+              className="h-9 sm:h-10 w-auto group-hover:scale-105 transition-transform flex-shrink-0"
+            />
+            <div className="flex flex-col hidden sm:flex">
+              <span className="font-extrabold text-base sm:text-xl tracking-tight text-brand-navy leading-none">Zorian</span>
+              <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase mt-0.5" style={{ color: '#667eea' }}>Finance</span>
             </div>
           </div>
 
