@@ -23,12 +23,12 @@ function Navigation({ setPage, currentPage = 'home' }) {
 
       {/* STICKY NAVBAR */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between gap-3">
 
           {/* Logo */}
           <div
             onClick={() => navigateTo('home')}
-            className="flex items-center gap-2 sm:gap-3 group cursor-pointer flex-shrink-0"
+            className="flex items-center gap-3 sm:gap-4 group cursor-pointer flex-shrink-0"
             role="button"
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && navigateTo('home')}
@@ -36,12 +36,8 @@ function Navigation({ setPage, currentPage = 'home' }) {
             <img
               src="/logo.PNG"
               alt="Zorian Logo"
-              className="h-9 sm:h-10 w-auto group-hover:scale-105 transition-transform flex-shrink-0"
+              className="h-24 sm:h-32 lg:h-40 w-auto group-hover:scale-105 transition-transform flex-shrink-0"
             />
-            <div className="flex flex-col hidden sm:flex">
-              <span className="font-extrabold text-base sm:text-xl tracking-tight text-brand-navy leading-none">Zorian</span>
-              <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase mt-0.5" style={{ color: '#667eea' }}>Finance</span>
-            </div>
           </div>
 
           {/* Desktop Nav */}
@@ -125,19 +121,19 @@ function Navigation({ setPage, currentPage = 'home' }) {
               Log In
             </button>
 
-            {/* CTA Button — text on sm+, icon-only on xs */}
+            {/* CTA Button — hidden on mobile, visible on sm+ */}
             <button
               onClick={() => navigateTo('apply')}
-              className="inline-flex items-center justify-center gap-1.5 bg-brand-blue hover:bg-brand-blueHover text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all border-0 cursor-pointer px-3 py-2 sm:px-5 sm:py-2.5"
+              className="hidden sm:inline-flex items-center justify-center gap-1.5 bg-brand-blue hover:bg-brand-blueHover text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all border-0 cursor-pointer px-5 py-2.5"
             >
-              <span className="hidden sm:inline whitespace-nowrap">Check Eligibility</span>
+              <span className="whitespace-nowrap">Check Eligibility</span>
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </button>
 
-            {/* Hamburger — visible only below lg */}
+            {/* Hamburger — visible only below sm */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-1.5 rounded-xl text-brand-navy hover:bg-brand-bg bg-transparent border-0 cursor-pointer"
+              className="sm:hidden p-1.5 rounded-xl text-brand-navy hover:bg-brand-bg bg-transparent border-0 cursor-pointer"
               aria-label="Toggle Menu"
               aria-expanded={mobileMenuOpen}
             >

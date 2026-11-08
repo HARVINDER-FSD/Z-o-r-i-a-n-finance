@@ -20,16 +20,12 @@ function Footer({ setPage }) {
           
           {/* Brand Summary */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 sm:gap-4">
               <img
                 src="/logo.PNG"
                 alt="Zorian Logo"
-                className="h-9 w-auto"
+                className="h-20 sm:h-24 md:h-28 w-auto bg-white p-2 rounded-lg"
               />
-              <div className="flex flex-col">
-                <span className="font-bold text-lg text-white tracking-tight">Zorian</span>
-                <span className="text-[9px] font-bold tracking-widest uppercase" style={{color:'#667eea'}}>Finance</span>
-              </div>
             </div>
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
               Fast, secure, and reliable loans when you need them most. Empowering consumers with quick access to funds across the United States.
